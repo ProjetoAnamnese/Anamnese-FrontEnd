@@ -26,7 +26,7 @@ export class AuthService {
   isLoggedIn(): boolean {
     // Se o usuario possui um token ou cookie
     const token = this.cookieService.get('USER_INFO');
-    return token ? true : false;
+    return !!token;
   }
 
   getProfissionalInfo() {

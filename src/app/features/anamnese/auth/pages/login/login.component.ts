@@ -1,7 +1,10 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Router} from "@angular/router";
-import {Subject} from "rxjs";
+import {catchError, finalize, Subject, takeUntil, throwError} from "rxjs";
+import {AuthService} from "../../service/auth.service";
+import {MessageService} from "../../../../../shared/services/message.service";
+import {HttpErrorResponse} from "@angular/common/http";
 
 @Component({
   selector: 'app-login',
@@ -18,7 +21,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   isChangingPassword = false;
   showingResetPassword = false;
 
-  constructor(private formBuilder: FormBuilder, private router: Router) {
+  constructor(private formBuilder: FormBuilder, private router: Router, private authService: AuthService, private messageService: MessageService) {
   }
 
   ngOnInit(): void {
@@ -26,11 +29,28 @@ export class LoginComponent implements OnInit, OnDestroy {
     }
 
 
-  togglePasswordVisibility(){
-    this.passwordVisible = !this.passwordVisible;
+  login(){
+    this.isLoading = true;
+    const requestUser = this.loginForm.value;
+    console.log('aqui o requestUser', requestUser)
+    this.authService.authUser(requestUser)
+      .pipe(takeUntil(this.destroy$),
+        finalize(() => this.isLoading = false),
+        catchError((err: HttpErrorResponse) =>{
+          const errMessage = err.error?.message || 'Erro ao efetuar login!'
+          this.messageService.errorMessage(errMessage)
+          return throwError(() => err)
+        })
+        ).subscribe((res) =>{
+          console.log('aqui a res', res)
+    })
   }
   loginWithGoogle(){
     console.log('nao implementado')
+  }
+
+  togglePasswordVisibility(){
+    this.passwordVisible = !this.passwordVisible;
   }
   showResetPassword() {
     this.showingResetPassword = true;

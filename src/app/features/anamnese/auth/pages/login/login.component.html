@@ -17,6 +17,7 @@
     </div>
     <form
       [formGroup]="loginForm"
+      (ngSubmit)="login()"
       nz-form
       class="login-form"
       nzLayout="vertical"
@@ -44,7 +45,7 @@
             <input
               [type]="passwordVisible ? 'text' : 'password'"
               nz-input
-              formControlName="senha"
+              formControlName="password"
               placeholder="Senha"
               autocomplete="current-password"
               required
