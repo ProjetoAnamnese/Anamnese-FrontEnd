@@ -57,34 +57,30 @@
 
         </nz-form-control>
       </nz-form-item>
-      <div nz-row nzJustify="space-between" class="login-actions">
-        <div>
-          <a
-            class="login-form-forgot"
-            *ngIf="!isChangingPassword"
-            (click)="showResetPassword()"
-          >Esqueceu sua senha?</a>
-          <div>
-            <button nz-button nzType="default" class="google-login-button" (click)="loginWithGoogle()">
-              <i nz-icon nzType="google-plus" nzTheme="outline"></i>
-              Login com Google
-            </button>
-          </div>
-        </div>
+      <div nz-row nzJustify="center" class="login-actions">
+        <button
+          nz-button
+          class="login-form-button custom-button"
+          nzType="primary"
+          [nzLoading]="isLoading"
+          type="submit"
+        >
+          Entrar
+        </button>
 
+        <button nz-button nzType="default" class="google-login-button" (click)="loginWithGoogle()">
+          <i nz-icon nzType="google-plus" nzTheme="outline"></i>
+          Login com Google
+        </button>
 
-        <div nz-col [nzSpan]="8">
-          <button
-            nz-button
-            class="login-form-button custom-button"
-            nzType="primary"
-            [nzLoading]="isLoading"
-            type="submit"
-          >
-            Entrar
-          </button>
-        </div>
+        <a class="register-link">Cadastre-se</a>
       </div>
+
+
+      <a class="login-form-forgot" *ngIf="!isChangingPassword" (click)="showResetPassword()">
+        Esqueceu sua senha?
+      </a>
+
     </form>
   </div>
 </div>
