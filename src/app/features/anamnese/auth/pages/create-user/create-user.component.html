@@ -1,1 +1,65 @@
-<p>create-user works!</p>
+<ng-container>
+  <form
+    nz-form
+    class="login-form"
+    nzLayout="vertical"
+    [formGroup]="createUserForm"
+    (ngSubmit)="createUser()"
+  >
+    <!-- Campo de E-mail -->
+    <nz-form-item>
+      <nz-form-label nzFor="email" nzRequired>E-mail:</nz-form-label>
+      <nz-form-control nzErrorTip="Informe um e-mail válido!" nzHasFeedback>
+        <nz-input-group nzPrefixIcon="mail" nzSize="large">
+          <input
+            type="email"
+            nz-input
+            formControlName="email"
+            placeholder="E-mail"
+            id="email"
+            autocomplete="email"
+            required
+          />
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+
+    <!-- Campo de Senha -->
+    <nz-form-item>
+      <nz-form-label nzFor="password" nzRequired>Senha:</nz-form-label>
+      <nz-form-control nzErrorTip="Informe sua senha!" nzHasFeedback>
+        <nz-input-group nzPrefixIcon="lock" nzSize="large">
+          <input
+            [type]="passwordVisible ? 'text' : 'password'"
+            nz-input
+            formControlName="password"
+            placeholder="Senha"
+            autocomplete="current-password"
+            required
+          />
+          <span (click)="togglePasswordVisibility()">
+            <i nz-icon [nzType]="passwordVisible ? 'eye-invisible' : 'eye'" nzTheme="outline" class="toggle-password"></i>
+          </span>
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+
+
+
+    <!--TODO  PEGAR ESPECIALIDADE PELO BANCO-->
+    <!-- Campo de Especialidade -->
+    <nz-form-item>
+      <nz-form-label nzFor="specialty" nzRequired>Especialidade:</nz-form-label>
+      <nz-form-control nzErrorTip="Escolha uma especialidade!">
+        <nz-select
+          nzShowSearch
+          nzPlaceHolder="Selecione a especialidade"
+          formControlName="specialty"
+          id="specialty"
+        >
+          <nz-option nzLabel="Cardiologia" nzValue="cardiologia"></nz-option>
+        </nz-select>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+</ng-container>
