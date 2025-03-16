@@ -44,13 +44,16 @@
             <input
               [type]="passwordVisible ? 'text' : 'password'"
               nz-input
-              type="password"
               formControlName="senha"
               placeholder="Senha"
               autocomplete="current-password"
               required
             />
+            <span  (click)="togglePasswordVisibility()">
+            <i nz-icon [nzType]="passwordVisible ? 'eye-invisible' : 'eye'" nzTheme="outline" class="toggle-password"></i>
+          </span>
           </nz-input-group>
+
         </nz-form-control>
       </nz-form-item>
       <div nz-row nzJustify="space-between" class="login-actions">
@@ -73,7 +76,6 @@
             [nzLoading]="isLoading"
             type="submit"
           >
-            <i nz-icon nzType="login" nzTheme="outline"></i>
             Entrar
           </button>
         </div>

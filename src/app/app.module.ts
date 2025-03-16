@@ -5,8 +5,7 @@ import { AppComponent } from './app.component';
 import { SharedModule } from "./shared/shared.module";
 import { NZ_I18N, pt_BR } from "ng-zorro-antd/i18n";
 
-import { NzIconModule, NZ_ICONS } from 'ng-zorro-antd/icon';
-import { GooglePlusOutline} from '@ant-design/icons-angular/icons';
+import { NzIconModule } from 'ng-zorro-antd/icon';
 
 @NgModule({
   declarations: [AppComponent],
@@ -18,7 +17,6 @@ import { GooglePlusOutline} from '@ant-design/icons-angular/icons';
   ],
   providers: [
     { provide: NZ_I18N, useValue: pt_BR },
-    { provide: NZ_ICONS, useValue: [GooglePlusOutline] },
   ],
   bootstrap: [AppComponent]
 })

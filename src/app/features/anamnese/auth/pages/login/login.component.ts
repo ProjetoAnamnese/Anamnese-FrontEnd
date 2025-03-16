@@ -26,6 +26,9 @@ export class LoginComponent implements OnInit, OnDestroy {
     }
 
 
+  togglePasswordVisibility(){
+    this.passwordVisible = !this.passwordVisible;
+  }
   loginWithGoogle(): void {
     console.log('nao implementado')
   }
