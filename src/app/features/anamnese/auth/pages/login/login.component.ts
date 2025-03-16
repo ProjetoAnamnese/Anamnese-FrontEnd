@@ -29,8 +29,15 @@ export class LoginComponent implements OnInit, OnDestroy {
   togglePasswordVisibility(){
     this.passwordVisible = !this.passwordVisible;
   }
-  loginWithGoogle(): void {
+  loginWithGoogle(){
     console.log('nao implementado')
+  }
+  showResetPassword() {
+    this.showingResetPassword = true;
+    console.log("aqui o this.showingResetPassword", this.showingResetPassword)
+  }
+  requestResetPassword(){
+
   }
 
    private loadInstances(){

@@ -58,7 +58,11 @@
       </nz-form-item>
       <div nz-row nzJustify="space-between" class="login-actions">
         <div>
-          <a class="login-form-forgot" *ngIf="!isChangingPassword">Esqueceu sua senha?</a>
+          <a
+            class="login-form-forgot"
+            *ngIf="!isChangingPassword"
+            (click)="showResetPassword()"
+          >Esqueceu sua senha?</a>
           <div>
             <button nz-button nzType="default" class="google-login-button" (click)="loginWithGoogle()">
               <i nz-icon nzType="google-plus" nzTheme="outline"></i>
@@ -79,9 +83,35 @@
             Entrar
           </button>
         </div>
-
       </div>
-
     </form>
   </div>
 </div>
+
+
+
+<!--Modal para recuperar senha-->
+
+<nz-modal [(nzVisible)]="showingResetPassword" nzTitle="Digite seu e-mail para alterar a senha:"
+          (nzOnCancel)="showingResetPassword = false"
+          (nzOnOk)="requestResetPassword()"
+          [nzOkLoading]="loadingRequestPassword"
+>
+  <form nz-form nzLayout="vertical" *nzModalContent>
+    <nz-form-item [formGroup]="requestPasswordForm">
+      <nz-form-label nzFor="email" nzRequired>E-mail:</nz-form-label>
+      <nz-form-control nzErrorTip="Informe um e-mail válido!" nzHasFeedback>
+        <nz-input-group nzPrefixIcon="mail" nzSize="large">
+          <input
+            type="email"
+            nz-input
+            formControlName="requestEmail"
+            placeholder="E-mail"
+            autocomplete="email"
+            required
+          />
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+</nz-modal>
