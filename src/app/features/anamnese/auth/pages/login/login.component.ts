@@ -26,6 +26,10 @@ export class LoginComponent implements OnInit, OnDestroy {
     }
 
 
+  loginWithGoogle(): void {
+    console.log('nao implementado')
+  }
+
    private loadInstances(){
     this.loginForm = this.formBuilder.group({
       email: ["", [Validators.required, Validators.email]],
