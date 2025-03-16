@@ -1,0 +1,78 @@
+<div nz-row nzJustify="center" nzAlign="middle" style="min-height: 100vh;" class="login-background-color">
+  <div
+    nz-col
+    class="bg-white rounded-lg shadow p-4 container mt-4"
+    nzXs="24"
+    nzSm="20"
+    nzMd="14"
+    nzLg="12"
+    nzXl="10"
+  >
+    <div nz-row>
+      <div nz-col [nzSpan]="24">
+        <h2 class="d-block float-left">
+          <span nz-typography nzType="secondary">Login</span>
+        </h2>
+      </div>
+    </div>
+    <form
+      [formGroup]="loginForm"
+      nz-form
+      class="login-form"
+      nzLayout="vertical"
+    >
+      <nz-form-item>
+        <nz-form-label nzFor="email" nzRequired>E-mail:</nz-form-label>
+        <nz-form-control nzErrorTip="Informe um e-mail válido!" nzHasFeedback>
+          <nz-input-group nzPrefixIcon="mail" nzSize="large">
+            <input
+              type="email"
+              nz-input
+              formControlName="email"
+              placeholder="E-mail"
+              id="email"
+              autocomplete="email"
+              required
+            />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label nzFor="password" nzRequired>Senha:</nz-form-label>
+        <nz-form-control nzErrorTip="Informe sua senha!" nzHasFeedback>
+          <nz-input-group nzPrefixIcon="lock" nzSize="large">
+            <input
+              [type]="passwordVisible ? 'text' : 'password'"
+              nz-input
+              type="password"
+              formControlName="senha"
+              placeholder="Senha"
+              autocomplete="current-password"
+              required
+            />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+      <div nz-row nzJustify="space-between">
+        <div>
+          <a
+            class="login-form-forgot"
+            *ngIf="!isChangingPassword"
+          >Esqueceu sua senha?</a
+          >
+        </div>
+        <div nz-col [nzSpan]="8">
+          <button
+            nz-button
+            class="login-form-button custom-button"
+            nzType="primary"
+            [nzLoading]="isLoading"
+            type="submit"
+          >
+            Entrar
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

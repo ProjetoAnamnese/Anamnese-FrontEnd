@@ -1,1 +1,176 @@
 /* You can add global styles to this file, and also import other style files */
+/* You can add global styles to this file, and also import other style files */
+
+body {
+  background-color: #172435;
+}
+
+.login-background-color {
+  background-color: #172435 !important;
+}
+
+.custom-checkbox .ant-checkbox-inner {
+  width: 24px;
+  height: 24px;
+}
+
+.custom-checkbox .ant-checkbox-input {
+  width: 24px;
+  height: 24px;
+}
+
+.custom-checkbox .ant-checkbox-wrapper {
+  font-size: 16px; /* Ajuste o tamanho do texto se necessário */
+}
+.shadow {
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+}
+
+.shadow-sm {
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+}
+
+.bg-light {
+  background-color: #f8f9fa !important;
+}
+
+.text-muted {
+  color: #6c757d !important;
+}
+
+.ant-avatar-string {
+  position: initial !important;
+}
+
+.rounded-sm {
+  border-radius: 0.2rem !important;
+}
+
+.border {
+  border: 1px solid #dee2e6 !important;
+}
+
+.rounded {
+  border-radius: 0.25rem !important;
+}
+
+.rounded-lg {
+  border-radius: 0.3rem !important;
+}
+
+.float-left {
+  float: left !important;
+}
+
+.float-right {
+  float: right !important;
+}
+
+.w-100 {
+  width: 100% !important;
+}
+
+.text-justify {
+  text-align: justify !important;
+}
+.primary-button {
+  background-color: #1DA57A;
+  color: white;
+  border-color: #1DA57A;
+}
+
+.primary-button:hover {
+  background-color: #178f66;
+  border-color: #178f66;
+}
+
+.default-button {
+  background-color: #f0f0f0;
+  color: #000;
+  border-color: #d9d9d9;
+}
+
+.default-button:hover {
+  background-color: #e6e6e6;
+  border-color: #d9d9d9;
+}
+
+.button-group {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.historic-icon {
+  font-size: 16px;
+  color: #1890ff;
+  margin-left: 8px;
+  cursor: pointer;
+}
+
+.custom-select {
+  width: 100%;
+  max-width: 100000px;
+}
+
+
+@media print {
+  nz-sider,
+  nz-header {
+    display: none;
+  }
+
+  .show-on-print {
+    display: block;
+  }
+
+  nz-layout {
+    height: 100% !important;
+  }
+
+  .igore-print {
+    display: none;
+  }
+}
+.ng-invalid.ng-touched {
+  border-color: red;
+}
+
+@media screen {
+  .show-on-print {
+    display: none;
+  }
+}
+
+
+@media (max-width: 768px){
+  .mobile-header {
+    margin-top: 50px;
+  }
+  .button-group{
+    display: flex;
+    flex-direction: column;
+    text-align: right;
+    gap: 5px;
+    width: 100%;
+  }
+}
+
+.descriptions-bold {
+  .ant-descriptions-item-label {
+    font-weight: bold;
+  }
+}
+
+
+.table-responsive {
+  margin-top: 10px;
+  display: block;
+  overflow-x: auto;
+  white-space: nowrap;
+  width: 100%;
+  background-color: white;
+}
+//.table-responsive nz-table {
+//  width: max-content;
+//  background-color: white;
+//}
