@@ -7,10 +7,10 @@ import {NZ_DATE_LOCALE, NZ_I18N, pt_BR} from "ng-zorro-antd/i18n";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {HttpClientModule} from "@angular/common/http";
 import { ptBR } from "date-fns/locale";
-import { CreateUserComponent } from './features/anamnese/auth/pages/create-user/create-user.component';
+import {MessageService} from "./shared/services/message.service";
 
 @NgModule({
-  declarations: [AppComponent, CreateUserComponent],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -22,6 +22,7 @@ import { CreateUserComponent } from './features/anamnese/auth/pages/create-user/
     { provide: NZ_I18N, useValue: pt_BR },
     { provide: NZ_DATE_LOCALE, useValue: ptBR },
     { provide: LOCALE_ID, useValue: "pt-BR" },
+    MessageService
   ],
   bootstrap: [AppComponent]
 })

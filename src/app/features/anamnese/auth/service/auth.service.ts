@@ -4,8 +4,6 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {CookieService} from "ngx-cookie-service";
 import {AuthResponseModel} from "../models/auth-response.model";
-import {SignUpUserRequest} from "../models/signup-user-request";
-import {SignupUserResponse} from "../models/signup-user-response";
 import {AuthRequestModel} from "../models/auth-request.model";
 
 @Injectable({
@@ -35,12 +33,7 @@ export class AuthService {
       this.httpOptions
     )
   }
-  signupUser(requestData: SignUpUserRequest): Observable<SignupUserResponse> {
-    return this.http.post<SignupUserResponse>(
-      `${this.API_URL}/api/Profissional/create-profissional`,
-      requestData
-    )
-  }
+
 
   authUser(requestData: AuthRequestModel): Observable<AuthResponseModel> {
     return this.http.post<AuthResponseModel>(

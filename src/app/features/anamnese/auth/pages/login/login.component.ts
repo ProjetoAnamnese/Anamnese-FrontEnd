@@ -5,7 +5,7 @@ import {catchError, finalize, Subject, takeUntil, throwError} from "rxjs";
 import {AuthService} from "../../service/auth.service";
 import {MessageService} from "../../../../../shared/services/message.service";
 import {HttpErrorResponse} from "@angular/common/http";
-import {CreateUserComponent} from "../create-user/create-user.component";
+import {CreateUserComponent} from "../../components/create-user/create-user.component";
 import {NzModalRef, NzModalService} from "ng-zorro-antd/modal";
 
 @Component({
@@ -52,7 +52,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     })
   }
 
-  openSignUpModal(): void {
+  openCreateUserModal(): void {
     const modal: NzModalRef<CreateUserComponent> = this.modalService.create({
       nzTitle: 'Cadastrar Usuário',
       nzContent: CreateUserComponent,

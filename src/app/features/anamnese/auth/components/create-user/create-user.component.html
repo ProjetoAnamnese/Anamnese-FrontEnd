@@ -6,6 +6,26 @@
     [formGroup]="createUserForm"
     (ngSubmit)="createUser()"
   >
+
+
+    <!-- Campo de Username -->
+    <nz-form-item>
+      <nz-form-label nzFor="username" nzRequired>Nome do usuário:</nz-form-label>
+      <nz-form-control nzErrorTip="Informe um nome válido!" nzHasFeedback>
+        <nz-input-group nzPrefixIcon="user" nzSize="large">
+          <input
+            type="text"
+            nz-input
+            formControlName="username"
+            placeholder="Nome do usuário"
+            id="username"
+            autocomplete="username"
+            required
+          />
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+
     <!-- Campo de E-mail -->
     <nz-form-item>
       <nz-form-label nzFor="email" nzRequired>E-mail:</nz-form-label>
@@ -49,13 +69,13 @@
     <!--TODO  PEGAR ESPECIALIDADE PELO BANCO-->
     <!-- Campo de Especialidade -->
     <nz-form-item>
-      <nz-form-label nzFor="specialty" nzRequired>Especialidade:</nz-form-label>
+      <nz-form-label nzFor="speciality" nzRequired>Especialidade:</nz-form-label>
       <nz-form-control nzErrorTip="Escolha uma especialidade!">
         <nz-select
           nzShowSearch
           nzPlaceHolder="Selecione a especialidade"
-          formControlName="specialty"
-          id="specialty"
+          formControlName="speciality"
+          id="speciality"
         >
           <nz-option nzLabel="Cardiologia" nzValue="cardiologia"></nz-option>
         </nz-select>

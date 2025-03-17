@@ -1,4 +1,4 @@
-export interface SignupUserResponse {
+export interface CreateUserResponse {
   id:string,
   name: string,
   email: string,

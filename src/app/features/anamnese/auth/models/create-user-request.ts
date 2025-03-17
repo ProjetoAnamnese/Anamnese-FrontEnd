@@ -1,4 +1,4 @@
-export interface SignUpUserRequest {
+export interface CreateUserRequest {
   name: string,
   email: string,
   specialty: string;
