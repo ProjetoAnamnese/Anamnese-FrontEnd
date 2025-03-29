@@ -34,6 +34,15 @@ export class AuthService {
     )
   }
 
+  authWithGoogle(): Window | null {
+    return window.open(
+      `${this.API_URL}/auth/google`,
+      '_blank',
+      'width=500,height=600'
+    );
+  }
+
+
 
   authUser(requestData: AuthRequestModel): Observable<AuthResponseModel> {
     return this.http.post<AuthResponseModel>(

@@ -17,7 +17,6 @@
     </div>
     <form
       [formGroup]="loginForm"
-      (ngSubmit)="login()"
       nz-form
       class="login-form"
       nzLayout="vertical"
@@ -62,6 +61,7 @@
           nz-button
           class="login-form-button custom-button"
           nzType="primary"
+          (click)="login()"
           [nzLoading]="isLoading"
           type="submit"
         >
