@@ -1,12 +1,13 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { AuthService } from "../../service/auth.service";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { NzModalRef } from 'ng-zorro-antd/modal';
-import {catchError, finalize, Subject, takeUntil, throwError} from "rxjs";
+import {catchError, finalize, of, Subject, takeUntil, throwError} from "rxjs";
 import {UserService} from "../../../service/user.service";
 import {HttpErrorResponse} from "@angular/common/http";
 import {MessageService} from "../../../../../shared/services/message.service";
 import {CreateUserResponse} from "../../models/create-user-response";
+import {SelectOption} from "../../../../../shared/interface/SelectOption";
+import {STATES_LIST} from "../../../../../shared/utils/StatesList";
 
 @Component({
   selector: 'app-create-user',
@@ -16,8 +17,8 @@ import {CreateUserResponse} from "../../models/create-user-response";
 export class CreateUserComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject<void>();
   createUserForm!: FormGroup;
-  passwordVisible: boolean = false;
   isLoading: boolean = true;
+  states: SelectOption[] = [];
 
   constructor(
     private userService: UserService,
@@ -28,10 +29,6 @@ export class CreateUserComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.loadInstances();
-  }
-
-  togglePasswordVisibility() {
-    this.passwordVisible = !this.passwordVisible;
   }
 
   createUser(): Promise<CreateUserResponse> {
@@ -69,14 +66,20 @@ export class CreateUserComponent implements OnInit, OnDestroy {
   private loadInstances() {
     this.createUserForm = this.formBuilder.group({
       username: ['gabrielo', [Validators.required]],
-      email: ['gabrielosantosb@email.com', [Validators.required, Validators.email]],
-      password: ['123456', [Validators.required, Validators.minLength(6)]],
+      email: ['', [Validators.required, Validators.email]],
       speciality: ['', Validators.required]
     });
+
+    this.states = STATES_LIST.map(state => ({
+      value: state.sigla,
+      label: state.name
+    }));
   }
 
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
   }
+
+  protected readonly of = of;
 }

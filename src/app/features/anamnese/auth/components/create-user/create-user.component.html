@@ -10,14 +10,14 @@
 
     <!-- Campo de Username -->
     <nz-form-item>
-      <nz-form-label nzFor="username" nzRequired>Nome do usuário:</nz-form-label>
+      <nz-form-label nzFor="username" nzRequired>Nome do instituição:</nz-form-label>
       <nz-form-control nzErrorTip="Informe um nome válido!" nzHasFeedback>
         <nz-input-group nzPrefixIcon="user" nzSize="large">
           <input
             type="text"
             nz-input
             formControlName="username"
-            placeholder="Nome do usuário"
+            placeholder="Nome do instituição"
             id="username"
             autocomplete="username"
             required
@@ -26,11 +26,37 @@
       </nz-form-control>
     </nz-form-item>
 
-    <!-- Campo de E-mail -->
+    <nz-col nzSm="24" nzXs="24">
+      <nz-form-item>
+        <nz-form-label nzFor="uf">UF</nz-form-label>
+        <nz-form-control nzErrorTip="Escolha uma UF!">
+          <nz-input-group nzSize="large">
+            <nz-select
+              id="uf"
+              nzPlaceHolder="Selecione UF"
+              nzAllowClear
+              nzShowSearch
+              formControlName="estadoAcronimo"
+              style="width: 100%;"
+            >
+            <nz-option *ngFor="let state of states" [nzValue]="state.value" [nzLabel]="state.label"></nz-option>
+            </nz-select>
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+    </nz-col>
+
+
+
+
+
+
+
+    <!-- Campo de Cidaede -->
     <nz-form-item>
-      <nz-form-label nzFor="email" nzRequired>E-mail:</nz-form-label>
+      <nz-form-label nzFor="email" nzRequired>Cidade:</nz-form-label>
       <nz-form-control nzErrorTip="Informe um e-mail válido!" nzHasFeedback>
-        <nz-input-group nzPrefixIcon="mail" nzSize="large">
+        <nz-input-group nzPrefixIcon="city" nzSize="large">
           <input
             type="email"
             nz-input
@@ -41,44 +67,6 @@
             required
           />
         </nz-input-group>
-      </nz-form-control>
-    </nz-form-item>
-
-    <!-- Campo de Senha -->
-    <nz-form-item>
-      <nz-form-label nzFor="password" nzRequired>Senha:</nz-form-label>
-      <nz-form-control nzErrorTip="Informe sua senha!" nzHasFeedback>
-        <nz-input-group nzPrefixIcon="lock" nzSize="large">
-          <input
-            [type]="passwordVisible ? 'text' : 'password'"
-            nz-input
-            formControlName="password"
-            placeholder="Senha"
-            autocomplete="current-password"
-            required
-          />
-          <span (click)="togglePasswordVisibility()">
-            <i nz-icon [nzType]="passwordVisible ? 'eye-invisible' : 'eye'" nzTheme="outline" class="toggle-password"></i>
-          </span>
-        </nz-input-group>
-      </nz-form-control>
-    </nz-form-item>
-
-
-
-    <!--TODO  PEGAR ESPECIALIDADE PELO BANCO-->
-    <!-- Campo de Especialidade -->
-    <nz-form-item>
-      <nz-form-label nzFor="speciality" nzRequired>Especialidade:</nz-form-label>
-      <nz-form-control nzErrorTip="Escolha uma especialidade!">
-        <nz-select
-          nzShowSearch
-          nzPlaceHolder="Selecione a especialidade"
-          formControlName="speciality"
-          id="speciality"
-        >
-          <nz-option nzLabel="Cardiologia" nzValue="cardiologia"></nz-option>
-        </nz-select>
       </nz-form-control>
     </nz-form-item>
   </form>

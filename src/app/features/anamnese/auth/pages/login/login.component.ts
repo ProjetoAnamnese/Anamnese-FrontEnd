@@ -61,6 +61,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
     const listener = (event: MessageEvent) => {
       if (!event.origin.includes('localhost')) return;
+      console.log('aqui o event', event)
       const user = event.data;
       if (user?.email) {
         console.log('Usuário logado via Google:', user);
@@ -77,7 +78,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   openCreateUserModal(): void {
     const modal: NzModalRef<CreateUserComponent> = this.modalService.create({
-      nzTitle: 'Cadastrar Usuário',
+      nzTitle: 'Cadastrar Instituição',
       nzContent: CreateUserComponent,
       nzWidth: 720,
       nzOkDisabled: true,
