@@ -6,7 +6,7 @@ import {NotFoundComponent} from "./shared/components/not-found/not-found.compone
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'dashboard', // so pra teste de tela de login por enquanto
+    redirectTo: 'login', // so pra teste de tela de login por enquanto
     pathMatch: 'full'
   },
   {

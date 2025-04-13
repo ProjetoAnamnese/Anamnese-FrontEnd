@@ -39,21 +39,24 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   login(): void {
-    this.isLoading = true;
+    // this.isLoading = true;
     const requestUser = this.loginForm.value;
+    this.router.navigate(['/dashboard']);
 
-    this.authService.authUser(requestUser)
-      .pipe(
-        takeUntil(this.destroy$),
-        finalize(() => this.isLoading = false),
-        catchError((err: HttpErrorResponse) => {
-          const errMessage = err.error?.message || 'Erro ao efetuar login!';
-          this.messageService.errorMessage(errMessage);
-          return throwError(() => err);
-        })
-      ).subscribe((res) => {
-        console.log('aqui a res do login', res)
-    });
+
+    // this.authService.authUser(requestUser)
+    //   .pipe(
+    //     takeUntil(this.destroy$),
+    //     finalize(() => this.isLoading = false),
+    //     catchError((err: HttpErrorResponse) => {
+    //       const errMessage = err.error?.message || 'Erro ao efetuar login!';
+    //       this.messageService.errorMessage(errMessage);
+    //       return throwError(() => err);
+    //     })
+    //   ).subscribe((res) => {
+    //     console.log('aqui a res do login', res)
+    //
+    // });
   }
 
   loginWithGoogle(): void {
