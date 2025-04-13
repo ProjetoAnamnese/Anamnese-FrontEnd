@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import {FullLayoutComponent} from "./core/full-layout/full-layout.component";
+import {NotFoundComponent} from "./shared/components/not-found/not-found.component";
 
 const routes: Routes = [
   {
@@ -20,6 +21,15 @@ const routes: Routes = [
       },
     ]
 
+  },
+
+  {
+    path: "404",
+    component: NotFoundComponent
+  },
+  {
+    path: "**",
+    component: NotFoundComponent
   }
 
 ];

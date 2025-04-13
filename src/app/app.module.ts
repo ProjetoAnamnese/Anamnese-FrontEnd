@@ -9,9 +9,10 @@ import {HttpClientModule} from "@angular/common/http";
 import { ptBR } from "date-fns/locale";
 import {MessageService} from "./shared/services/message.service";
 import {FullLayoutModule} from "./core/full-layout/full-layout.module";
+import {NotFoundComponent} from "./shared/components/not-found/not-found.component";
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, NotFoundComponent],
   imports: [
     BrowserModule,
     FullLayoutModule,
