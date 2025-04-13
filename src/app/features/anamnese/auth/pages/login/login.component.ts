@@ -52,7 +52,7 @@ export class LoginComponent implements OnInit, OnDestroy {
           return throwError(() => err);
         })
       ).subscribe((res) => {
-      console.log('Login tradicional - resposta:', res);
+        console.log('aqui a res do login', res)
     });
   }
 

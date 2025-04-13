@@ -1,0 +1,110 @@
+<ng-container>
+  <nz-layout>
+    <nz-sider
+      class="menu-sidebar"
+      nzCollapsible
+      nzWidth="250px"
+      [nzReverseArrow]="false"
+      [nzCollapsedWidth]="0"
+      [(nzCollapsed)]="isCollapsed"
+      [nzTrigger]="null"
+    >
+
+      <div class="sidebar-logo">
+        <img src="assets/medical-history-doctor-svgrepo-com.svg" alt="medical-history" />
+      </div>
+
+      <ul
+        nz-menu
+        [nzTheme]="'dark'"
+        [nzMode]="'inline'"
+        [nzInlineCollapsed]="isCollapsed"
+      >
+        <li nz-menu-item nzMatchRouter>
+          <i nz-icon nzType="appstore"></i>
+          <span>Dashboard</span>
+        </li>
+        <li nz-submenu nzIcon="user" nzTitle="Pacientes">
+          <ul>
+            <li nz-menu-item nzMatchRouter><a [routerLink]="['/']">Gerenciar Pacientes</a></li>
+            <li nz-menu-item><a [routerLink]="['/']">Cadastrar Paciente</a></li>
+          </ul>
+        </li>
+        <li nz-submenu nzIcon="file-text" nzTitle="Fichas Anamense">
+          <ul>
+            <li nz-menu-item nzMatchRouter><a [routerLink]="['/']">Gerenciar Fichas</a></li>
+            <li nz-menu-item nzMatchRouter><a [routerLink]="['/']">Cadastrar Ficha</a></li>
+          </ul>
+        </li>
+        <li nz-submenu nzIcon="schedule" nzTitle="Agendamento">
+          <ul>
+            <li nz-menu-item nzMatchRouter><a [routerLink]="['/']">Algum horario</a></li>
+            <li nz-menu-item nzMatchRouter><a [routerLink]="['/']">Seila </a></li>
+          </ul>
+        </li>
+      </ul>
+    </nz-sider>
+    <nz-layout>
+      <nz-header class="fixed-header">
+        <div class="app-header">
+          <span class="header-trigger" (click)="isCollapsed = !isCollapsed">
+          <i
+            class="trigger"
+            nz-icon
+            [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"></i>
+        </span>
+          <div class="float-right mr-5" style="margin-right: 30px">
+            <a
+              nz-dropdown
+              nzTrigger="click"
+              [nzDropdownMenu]="menu"
+              [nzPlacement]="'bottomRight'"
+              nzOverlayClassName="user-menu">
+              <nz-avatar
+                [nzIcon]="'user'"
+                nz-tooltip
+                [nzSrc]="userGravatarImg">
+              </nz-avatar>
+            </a>
+            <nz-dropdown-menu #menu="nzDropdownMenu" class="p-4">
+              <ul nz-menu>
+                <li nz-menu-item style="cursor: none">
+                  <div class="d-flex mr-2 ml-1">
+                    <div style="text-align: center">
+                      <nz-avatar
+                        [nzText]="userNameInitials"
+                        [nzSrc]="userGravatarImg"
+                        nzSize="large"
+                        [ngStyle]="{ 'background-color': '#39d4b9' }"
+                        style="vertical-align: middle; text-align: center">
+                      </nz-avatar>
+                    </div>
+                    <div class="ml-2">
+                      <p class="m-0 p-0" nz-typography>{{ userName }}</p>
+                      <p class="m-0 p-0" nz-typography nzType="secondary">
+                        {{ userEmail }}
+                      </p>
+                    </div>
+                  </div>
+                </li>
+                <li nz-menu-divider></li>
+                <li nz-menu-item (click)="logout()">
+                  <i
+                    nz-icon
+                    nzType="logout"
+                    nzTheme="outline"
+                    style="color: rgba(0, 0, 0, 0.25);margin-right: 5px "
+                  ></i
+                  >Sair
+                </li>
+              </ul>
+            </nz-dropdown-menu>
+          </div>
+        </div>
+      </nz-header>
+      <nz-content>
+        <router-outlet></router-outlet>
+      </nz-content>
+    </nz-layout>
+  </nz-layout>
+</ng-container>

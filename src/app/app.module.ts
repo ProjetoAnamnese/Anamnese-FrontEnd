@@ -8,11 +8,13 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {HttpClientModule} from "@angular/common/http";
 import { ptBR } from "date-fns/locale";
 import {MessageService} from "./shared/services/message.service";
+import {FullLayoutModule} from "./core/full-layout/full-layout.module";
 
 @NgModule({
   declarations: [AppComponent],
   imports: [
     BrowserModule,
+    FullLayoutModule,
     AppRoutingModule,
     SharedModule,
     HttpClientModule,
