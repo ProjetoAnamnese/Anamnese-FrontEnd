@@ -2,22 +2,24 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import {FullLayoutComponent} from "./core/full-layout/full-layout.component";
 import {NotFoundComponent} from "./shared/components/not-found/not-found.component";
+import {AuthService} from "./features/anamnese/auth/service/auth.service";
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'login',
+    redirectTo: 'dashboard',
     pathMatch: 'full'
   },
   {
     path: 'login',
-    loadChildren: () => import('./features/anamnese/auth/pages/login/login.module').then(m => m.LoginModule)
+    loadChildren: () => import('./features/anamnese/auth/pages/login/login.module').then(m => m.LoginModule),
   },
   {
     path: '', component: FullLayoutComponent, children: [
       {
         path: 'dashboard',
-        loadChildren: () => import('./features/anamnese/components/dashboard/dashboard.module').then(m => m.DashboardModule)
+        loadChildren: () => import('./features/anamnese/components/dashboard/dashboard.module').then(m => m.DashboardModule),
+        canActivate: [AuthService],
       },
     ]
 

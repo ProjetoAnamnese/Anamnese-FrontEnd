@@ -10,7 +10,7 @@
 
     <!-- Campo de Username -->
     <nz-form-item>
-      <nz-form-label nzFor="username" nzRequired>Nome do instituição:</nz-form-label>
+      <nz-form-label nzFor="username" nzRequired>Nome do Profissional:</nz-form-label>
       <nz-form-control nzErrorTip="Informe um nome válido!" nzHasFeedback>
         <nz-input-group nzPrefixIcon="user" nzSize="large">
           <input
@@ -26,17 +26,55 @@
       </nz-form-control>
     </nz-form-item>
 
+    <!-- Campo de Email -->
+    <nz-form-item>
+      <nz-form-label nzFor="username" nzRequired>E-mail:</nz-form-label>
+      <nz-form-control nzErrorTip="Informe um nome válido!" nzHasFeedback>
+        <nz-input-group nzPrefixIcon="mail" nzSize="large">
+          <input
+            type="text"
+            nz-input
+            formControlName="email"
+            placeholder="E-mail"
+            id="email"
+            autocomplete="email"
+            required
+          />
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+
+    <!-- Campo de senha -->
+    <nz-form-item>
+      <nz-form-label nzFor="username" nzRequired>Senha:</nz-form-label>
+      <nz-form-control nzErrorTip="Informe uma senha válida!" nzHasFeedback>
+        <nz-input-group nzPrefixIcon="password" nzSize="large">
+          <input
+            type="password"
+            nz-input
+            formControlName="password"
+            placeholder="Senha"
+            id="password"
+            autocomplete="password"
+            required
+          />
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+
+
+    <!-- Campo de Especialidades -->
     <nz-col nzSm="24" nzXs="24">
       <nz-form-item>
-        <nz-form-label nzFor="uf">UF</nz-form-label>
-        <nz-form-control nzErrorTip="Escolha uma UF!">
+        <nz-form-label nzFor="uf">Especialidade</nz-form-label>
+        <nz-form-control nzErrorTip="Escolha uma especialidade!">
           <nz-input-group nzSize="large">
             <nz-select
               id="uf"
-              nzPlaceHolder="Selecione UF"
+              nzPlaceHolder="Selecione uma especialidade"
               nzAllowClear
               nzShowSearch
-              formControlName="estadoAcronimo"
+              formControlName="speciality"
               style="width: 100%;"
             >
             <nz-option *ngFor="let state of states" [nzValue]="state.value" [nzLabel]="state.label"></nz-option>
@@ -45,29 +83,5 @@
         </nz-form-control>
       </nz-form-item>
     </nz-col>
-
-
-
-
-
-
-
-    <!-- Campo de Cidaede -->
-    <nz-form-item>
-      <nz-form-label nzFor="email" nzRequired>Cidade:</nz-form-label>
-      <nz-form-control nzErrorTip="Informe uma cidade válido!" nzHasFeedback>
-        <nz-input-group nzPrefixIcon="city" nzSize="large">
-          <input
-            type="email"
-            nz-input
-            formControlName="email"
-            placeholder="Cidade"
-            id="email"
-            autocomplete="email"
-            required
-          />
-        </nz-input-group>
-      </nz-form-control>
-    </nz-form-item>
   </form>
 </ng-container>

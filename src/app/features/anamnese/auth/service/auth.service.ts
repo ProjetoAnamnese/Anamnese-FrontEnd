@@ -5,6 +5,7 @@ import {Observable} from "rxjs";
 import {CookieService} from "ngx-cookie-service";
 import {AuthResponseModel} from "../models/auth-response.model";
 import {AuthRequestModel} from "../models/auth-request.model";
+import {Router, UrlTree} from "@angular/router";
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +20,20 @@ export class AuthService {
     })
   }
 
-  constructor(private http: HttpClient, private cookieService: CookieService) { }
+  constructor(private http: HttpClient, private cookieService: CookieService, private router: Router) { }
+
+  canActivate():
+    | Observable<boolean | UrlTree>
+    | Promise<boolean | UrlTree>
+    | boolean
+    | UrlTree {
+    if (!this.isLoggedIn()) {
+      this.router.navigate(['/home']);
+      return false;
+    }
+    this.isLoggedIn()
+    return true;
+  }
 
   isLoggedIn(): boolean {
     // Se o usuario possui um token ou cookie
@@ -33,15 +47,6 @@ export class AuthService {
       this.httpOptions
     )
   }
-
-  authWithGoogle(): Window | null {
-    return window.open(
-      `${this.API_URL}/auth/google`,
-      '_blank',
-      'width=500,height=600'
-    );
-  }
-
 
 
   authUser(requestData: AuthRequestModel): Observable<AuthResponseModel> {
