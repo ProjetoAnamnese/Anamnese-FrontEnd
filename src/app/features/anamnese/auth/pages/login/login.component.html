@@ -61,17 +61,17 @@
           nz-button
           class="login-form-button custom-button"
           nzType="primary"
-          (click)="login()"
+          (click)="onLogin()"
           [nzLoading]="isLoading"
           type="submit"
         >
           Entrar
         </button>
 
-        <button nz-button nzType="default" class="google-login-button" (click)="loginWithGoogle()">
-          <i nz-icon nzType="google-plus" nzTheme="outline"></i>
-          Login com Google
-        </button>
+<!--        <button nz-button nzType="default" class="google-login-button" (click)="loginWithGoogle()">-->
+<!--          <i nz-icon nzType="google-plus" nzTheme="outline"></i>-->
+<!--          Login com Google-->
+<!--        </button>-->
 
         <a class="register-link" (click)="openCreateUserModal()">Cadastre-se</a>
       </div>
