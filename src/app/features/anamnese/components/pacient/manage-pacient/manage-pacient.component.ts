@@ -19,6 +19,7 @@ export class ManagePacientComponent implements OnInit , OnDestroy {
   filterPacientForm !: FormGroup
   pacientsData !: IPacient[]
   ufs: SelectOption[] = [];
+  totalPacients: number = 0
 
   constructor(
     private formBuilder: FormBuilder,
@@ -43,7 +44,8 @@ export class ManagePacientComponent implements OnInit , OnDestroy {
         })
       ).subscribe((res) =>{
         console.log("AQUI OS PACIENTES", res)
-        this.pacientsData = res;
+        this.pacientsData = res.items;
+        this.totalPacients = res.total_count
       })
     }
 

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from "@angular/common/http";
+import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
 import { CookieService } from "ngx-cookie-service";
 import { Observable } from "rxjs";
 import {environment} from "../../../../../env/env";
@@ -7,6 +7,7 @@ import {GetPacientsResponse} from "../../../shared/dtos/pacient/GetPacientsRespo
 import {AddPacientRequest} from "../../../shared/dtos/pacient/AddPacientRequest";
 import {EditPacientRequest} from "../../../shared/dtos/pacient/EditPacientRequest";
 import {IPacient} from "../interfaces/IPacient";
+import {PagedResponse} from "../../../shared/interface/PagedResponse";
 
 @Injectable({ providedIn: 'root' })
 export class PacientService {
@@ -26,12 +27,14 @@ export class PacientService {
     };
   }
 
-  getAllPacients(filters: any): Observable<IPacient[]> {
-    return this.http.get<GetPacientsResponse[]>(
+  getAllPacients(filters?: any): Observable<PagedResponse<IPacient>> {
+    const params = new HttpParams({ fromObject: filters });
+    return this.http.get<PagedResponse<IPacient>>(
       `${this.API_URL}/api/Pacient/get-pacients`,
-      this.httpOptions
+      { headers: this.httpOptions.headers, params }
     );
   }
+
 
   getProfissionalPacients(): Observable<GetPacientsResponse[]> {
     return this.http.get<GetPacientsResponse[]>(
