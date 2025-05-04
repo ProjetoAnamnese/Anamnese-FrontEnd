@@ -20,6 +20,10 @@ export class ManagePacientComponent implements OnInit , OnDestroy {
   pacientsData !: IPacient[]
   ufs: SelectOption[] = [];
   totalPacients: number = 0
+  showPagination: boolean = true;
+  showMoreFilters: boolean = false;
+  pageIndex = 1;
+  pageSize = 10;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -45,7 +49,7 @@ export class ManagePacientComponent implements OnInit , OnDestroy {
       ).subscribe((res) =>{
         console.log("AQUI OS PACIENTES", res)
         this.pacientsData = res.items;
-        this.totalPacients = res.total_count
+        this.totalPacients = res.totalCount
       })
     }
 
@@ -53,7 +57,15 @@ export class ManagePacientComponent implements OnInit , OnDestroy {
       this.filterPacientForm.reset()
       this.getPacients()
     }
-    loadInstances(){
+  onPageIndexChange(pageIndex: number): void {
+    this.pageIndex = pageIndex;
+  }
+
+  onPageSizeChange(pageSize: number):void{
+    this.pageSize = pageSize
+  }
+
+  loadInstances(){
      this.filterPacientForm = this.formBuilder.group({
        username: ['',],
        email: [''],

@@ -17,7 +17,7 @@
       <nz-form-item>
         <nz-form-label>E-mail</nz-form-label>
         <nz-form-control>
-          <input formControlName="email" nz-input placeholder="E-mail" />
+          <input formControlName="email" nz-input placeholder="E-mail"/>
         </nz-form-control>
       </nz-form-item>
     </nz-col>
@@ -51,7 +51,7 @@
             nzAllowClear
             nzShowSearch
             formControlName="uf"
-            >
+          >
             <nz-option *ngFor="let uf of ufs" [nzValue]="uf.value" [nzLabel]="uf.label"></nz-option>
           </nz-select>
         </nz-form-control>
@@ -105,3 +105,61 @@
     </nz-col>
   </nz-row>
 </form>
+
+<nz-spin [nzSpinning]="isLoading">
+  <nz-divider
+    nzText="Encontrados: {{ totalPacients }} "
+    nzOrientation="left"
+    *ngIf="!!totalPacients"></nz-divider>
+  <div nz-row class="table-responsive">
+    <nz-table
+      nzShowSizeChanger
+      [nzData]="pacientsData"
+      nzSize="default"
+      [nzFrontPagination]="false"
+      [nzShowPagination]="showPagination"
+      [nzTotal]="totalPacients"
+      [nzPageIndex]="pageIndex"
+      [nzPageSize]="pageSize"
+    >
+      <thead>
+      <tr>
+        <th>Ações</th>
+        <th>Nome</th>
+        <th>Email</th>
+        <th>Telefone</th>
+        <th>Endereço</th>
+        <th>Profissão</th>
+        <th>UF</th>
+        <th>Data de nascimento</th>
+        <th>Gênero</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let pacient of pacientsData">
+        <td>
+          <button nz-button nzShape="circle" title="Editar" style="margin-left: 5px">
+            <span nz-icon nzType="edit"></span>
+          </button>
+          <button nz-button nzShape="circle" title="Visualizar ficha" style="margin-left: 5px">
+            <span nz-icon nzType="file-search"></span>
+          </button>
+        </td>
+
+        <td>{{ pacient.username }}</td>
+        <td>{{ pacient.email }}</td>
+        <td>{{ pacient.phone }}</td>
+        <td>{{ pacient.address }}</td>
+        <td>{{ pacient?.profession ? pacient.profession : '---' }}</td>
+        <td>{{ pacient.uf }}</td>
+        <td>{{ pacient.birth ? (pacient.birth | date:'dd/MM/yyyy') : '---' }}</td>
+        <td>{{ pacient.gender }}</td>
+
+      </tr>
+      </tbody>
+
+
+    </nz-table>
+
+  </div>
+</nz-spin>

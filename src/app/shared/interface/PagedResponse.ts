@@ -1,5 +1,5 @@
 export interface PagedResponse<T> {
   items: T[];
-  total_count: number;
+  totalCount: number;
   per_page: number;
 }
