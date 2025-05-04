@@ -54,7 +54,7 @@ export class ManagePacientComponent implements OnInit , OnDestroy {
     }
 
     clearForm(){
-      this.filterPacientForm.reset()
+      this.loadInstances()
       this.getPacients()
     }
   onPageIndexChange(pageIndex: number): void {
