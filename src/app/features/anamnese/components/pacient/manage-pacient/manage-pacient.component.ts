@@ -1,10 +1,12 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {Subject} from "rxjs";
+import {catchError, finalize, Subject, takeUntil, throwError} from "rxjs";
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {PacientService} from "../../../service/pacients.service";
 import {MessageService} from "../../../../../shared/services/message.service";
 import {UF_LIST} from "../../../../../shared/model/LIST_UF";
 import {SelectOption} from "../../../../../shared/interface/SelectOption";
+import {HttpErrorResponse} from "@angular/common/http";
+import {IPacient} from "../../../interfaces/IPacient";
 
 @Component({
   selector: 'app-manage-pacient',
@@ -15,6 +17,7 @@ export class ManagePacientComponent implements OnInit , OnDestroy {
   private destroy$ = new Subject<void>();
   isLoading = false
   filterPacientForm !: FormGroup
+  pacientsData !: IPacient[]
   ufs: SelectOption[] = [];
 
   constructor(
@@ -24,11 +27,24 @@ export class ManagePacientComponent implements OnInit , OnDestroy {
   }
   ngOnInit(): void {
         this.loadInstances()
+        this.getPacients()
     }
 
 
-    getPacients(): void {
-      console.log("get pacients")
+    getPacients() {
+      this.isLoading = true
+      this.pacientService.getAllPacients(this.filterPacientForm.value).pipe(takeUntil(this.destroy$),
+        finalize(() => this.isLoading = false),
+        catchError((err: HttpErrorResponse) => {
+          const errorMessage = err.error?.message || 'Erro ao buscar pacientes!';
+          console.log(err);
+          this.messageService.errorMessage(errorMessage);
+          return throwError(() => err);
+        })
+      ).subscribe((res) =>{
+        console.log("AQUI OS PACIENTES", res)
+        this.pacientsData = res;
+      })
     }
 
     clearForm(){

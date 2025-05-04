@@ -6,6 +6,7 @@ import {environment} from "../../../../../env/env";
 import {GetPacientsResponse} from "../../../shared/dtos/pacient/GetPacientsResponse";
 import {AddPacientRequest} from "../../../shared/dtos/pacient/AddPacientRequest";
 import {EditPacientRequest} from "../../../shared/dtos/pacient/EditPacientRequest";
+import {IPacient} from "../interfaces/IPacient";
 
 @Injectable({ providedIn: 'root' })
 export class PacientService {
@@ -25,7 +26,7 @@ export class PacientService {
     };
   }
 
-  getAllPacients(): Observable<GetPacientsResponse[]> {
+  getAllPacients(filters: any): Observable<IPacient[]> {
     return this.http.get<GetPacientsResponse[]>(
       `${this.API_URL}/api/Pacient/get-pacients`,
       this.httpOptions
