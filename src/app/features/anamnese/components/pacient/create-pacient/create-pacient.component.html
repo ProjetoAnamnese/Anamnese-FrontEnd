@@ -1,7 +1,7 @@
 <nz-page-header class="mobile-header" nzTitle="Cadastrar Paciente"></nz-page-header>
 <nz-divider></nz-divider>
 
-<form nz-form nzLayout="vertical" [formGroup]="createUserForm" (ngSubmit)="handleCreatePacient()">
+<form nz-form nzLayout="vertical" [formGroup]="createPacientForm" (ngSubmit)="handleCreatePacient()">
   <h1>Informações Gerais</h1>
   <nz-row nzGutter="12">
 
@@ -9,7 +9,7 @@
       <nz-form-item>
         <nz-form-label>Nome do paciente</nz-form-label>
         <nz-form-control nzErrorTip="Informe um nome válido">
-          <input formControlName="username" nz-input placeholder="Nome do paciente" required />
+          <input formControlName="username" nz-input placeholder="Nome do paciente" required/>
         </nz-form-control>
       </nz-form-item>
     </nz-col>
@@ -18,7 +18,7 @@
       <nz-form-item>
         <nz-form-label>E-mail</nz-form-label>
         <nz-form-control>
-          <input formControlName="email" nz-input placeholder="E-mail" type="email" />
+          <input formControlName="email" nz-input placeholder="E-mail" type="email"/>
         </nz-form-control>
       </nz-form-item>
     </nz-col>
@@ -27,21 +27,30 @@
       <nz-form-item>
         <nz-form-label>Telefone</nz-form-label>
         <nz-form-control>
-          <input mask="(00) 0*-0000" formControlName="phone" nz-input placeholder="Telefone" />
+          <input mask="(00) 0*-0000" formControlName="phone" nz-input placeholder="Telefone"/>
         </nz-form-control>
       </nz-form-item>
     </nz-col>
 
-    <nz-col nzSm="8" nzXs="24">
+    <nz-col nzSm="6" nzXs="24">
       <nz-form-item>
         <nz-form-label>Profissão</nz-form-label>
         <nz-form-control>
-          <input formControlName="profession" nz-input placeholder="Profissão" />
+          <input formControlName="profession" nz-input placeholder="Profissão"/>
         </nz-form-control>
       </nz-form-item>
     </nz-col>
 
-    <nz-col nzSm="8" nzXs="24">
+    <nz-col nzSm="6" nzXs="24">
+      <nz-form-item>
+        <nz-form-label>Endereço</nz-form-label>
+        <nz-form-control>
+          <input formControlName="address" nz-input placeholder="Endereço"/>
+        </nz-form-control>
+      </nz-form-item>
+    </nz-col>
+
+    <nz-col nzSm="6" nzXs="24">
       <nz-form-item>
         <nz-form-label>UF</nz-form-label>
         <nz-form-control>
@@ -58,7 +67,7 @@
       </nz-form-item>
     </nz-col>
 
-    <nz-col nzSm="8" nzXs="24">
+    <nz-col nzSm="6" nzXs="24">
       <nz-form-item>
         <nz-form-label>Gênero</nz-form-label>
         <nz-form-control>
@@ -101,6 +110,7 @@
         type="button"
         style="margin-right: 5px"
         [nzLoading]="isLoading"
+        [disabled]="isLoading"
         (click)="clearForm()"
       >
         Limpar
@@ -110,10 +120,13 @@
         nzType="primary"
         nzSize="large"
         type="submit"
+        [disabled]="isLoading || !createPacientForm.valid"
         [nzLoading]="isLoading"
       >
-        <i nz-icon nzType="plus" nzTheme="outline"></i>Cadastrar Paciente
+        <i nz-icon nzType="plus" nzTheme="outline"></i>
+        Cadastrar Paciente
       </button>
+
     </nz-col>
   </nz-row>
 </form>
