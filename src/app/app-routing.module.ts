@@ -15,12 +15,15 @@ const routes: Routes = [
     loadChildren: () => import('./features/anamnese/auth/pages/login/login.module').then(m => m.LoginModule),
   },
   {
-    path: '', component: FullLayoutComponent, children: [
+    path: '', component: FullLayoutComponent, canActivate: [AuthService], children: [
       {
         path: 'dashboard',
         loadChildren: () => import('./features/anamnese/components/dashboard/dashboard.module').then(m => m.DashboardModule),
-        canActivate: [AuthService],
       },
+      {
+        path: 'create-pacient',
+        loadChildren: () => import('./features/anamnese/components/pacient/create-pacient/create-pacient.module').then(m => m.CreatePacientModule),
+      }
     ]
 
   },
