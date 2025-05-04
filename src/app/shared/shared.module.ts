@@ -25,6 +25,7 @@ import { NzTabsModule } from 'ng-zorro-antd/tabs';
 import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
 import { NzResultModule } from 'ng-zorro-antd/result';
 import { NzEmptyModule } from 'ng-zorro-antd/empty';
+import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
 
 @NgModule({
   declarations: [],
@@ -56,6 +57,8 @@ import { NzEmptyModule } from 'ng-zorro-antd/empty';
     NzPopconfirmModule,
     NzResultModule,
     NzEmptyModule,
+    NgxMaskDirective,
+
   ],
   exports: [
     CommonModule,
@@ -87,6 +90,8 @@ import { NzEmptyModule } from 'ng-zorro-antd/empty';
     NzEmptyModule,
 
   ],
-  providers: []
+  providers: [
+    provideNgxMask(),
+  ]
 })
 export class SharedModule { }

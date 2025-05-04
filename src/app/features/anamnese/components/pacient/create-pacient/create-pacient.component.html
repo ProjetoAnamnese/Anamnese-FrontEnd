@@ -1,1 +1,76 @@
-<p>create-pacient works!</p>
+<nz-page-header class="mobile-header" nzTitle="Cadastrar Paciente">
+</nz-page-header>
+<nz-divider></nz-divider>
+<form nz-form nzLayout="vertical" [formGroup]="createUserForm" (ngSubmit)="handleCreatePacient()">
+  <h1>Informações Gerais</h1>
+  <nz-row nzGutter="12">
+    <nz-col nzSm="6" nzXs="24">
+      <nz-form-label>Nome do paciente</nz-form-label>
+      <div nz-tooltip nzTooltipTitle="Digite o nome do paciente">
+        <nz-form-item>
+          <nz-form-control nzErrorTip="Informe um nome válido">
+            <input
+              formControlName="username"
+              nz-input
+              placeholder="Nome do paciente"
+              required
+            >
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </nz-col>
+
+    <nz-col nzSm="6" nzXs="24">
+      <nz-form-label>E-mail</nz-form-label>
+      <nz-form-item>
+        <nz-form-control>
+          <input
+            formControlName="email"
+            nz-input
+            placeholder="E-mail"
+            type="email"
+          >
+        </nz-form-control>
+      </nz-form-item>
+    </nz-col>
+
+    <nz-col nzSm="8" nzXs="24">
+      <nz-form-label>Telefone</nz-form-label>
+      <nz-form-item>
+        <nz-form-control>
+          <input
+            mask="(00) 0*-0000"
+            formControlName="phone"
+            nz-input
+            placeholder="Telefone"
+          >
+        </nz-form-control>
+      </nz-form-item>
+    </nz-col>
+
+    <nz-col nzSm="6" nzXs="24">
+      <nz-form-label
+
+      >Profissão
+      </nz-form-label
+      >
+      <div nz-tooltip nzTooltipTitle="Digite a profissão do paciente">
+        <nz-form-item>
+
+          <nz-form-control>
+            <input
+              formControlName="profession"
+              nz-input
+              placeholder="Profissão"
+              type="text"
+            >
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </nz-col>
+  </nz-row>
+
+
+
+
+</form>
