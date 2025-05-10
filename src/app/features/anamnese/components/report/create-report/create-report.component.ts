@@ -5,6 +5,7 @@ import { PacientService } from '../../../service/pacients.service';
 import { MessageService } from '../../../../../shared/services/message.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { IPacient } from '../../../interfaces/IPacient';
+import {ReportsService} from "../../../service/reports.service";
 
 @Component({
   selector: 'app-create-report',
@@ -23,7 +24,8 @@ export class CreateReportComponent implements OnInit, OnDestroy {
   constructor(
     private formBuilder: FormBuilder,
     private pacientService: PacientService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private reportService: ReportsService
   ) {}
 
   ngOnInit(): void {
@@ -31,24 +33,7 @@ export class CreateReportComponent implements OnInit, OnDestroy {
     this.getPacients();
   }
 
-  private loadInstances(): void {
-    this.createReportForm = this.formBuilder.group({
-      medicalHistory: ['', Validators.required],
-      currentMedications: ['', Validators.required],
-      cardiovascularIssues: [false],
-      diabetes: [false],
-      familyHistoryCardiovascularIssues: [false],
-      familyHistoryDiabetes: [false],
-      physicalActivity: ['', Validators.required],
-      smoker: [false],
-      alcoholConsumption: [0, [Validators.required, Validators.min(0), Validators.max(10)]],
-      emergencyContactName: ['', Validators.required],
-      emergencyContactPhone: ['', [Validators.required, Validators.pattern(/^\(\d{2}\) \d{4,5}-\d{4}$/)]],
-      observations: ['']
-    });
 
-    this.disableReportForm();
-  }
 
   private disableReportForm(): void {
     Object.keys(this.createReportForm.controls).forEach(key => {
@@ -64,7 +49,6 @@ export class CreateReportComponent implements OnInit, OnDestroy {
 
   onPacienteSelect(pacienteId: number | null): void {
     this.selectedPacienteId = pacienteId ?? 0;
-    console.log('AQUI O PACIENT_ID', pacienteId)
     this.selectedPacienteId ? this.enableReportForm() : this.disableReportForm();
   }
 
@@ -86,11 +70,20 @@ export class CreateReportComponent implements OnInit, OnDestroy {
 
   handleCreateReport(): void {
     if (!this.selectedPacienteId) return;
-    const reportData = {
-      ...this.createReportForm.value,
-      pacientId: this.selectedPacienteId
-    };
-    console.log('Report a ser enviado:', reportData);
+      this.isLoading = true;
+      this.reportService.createReport(this.selectedPacienteId, this.createReportForm.value)
+        .pipe(takeUntil(this.destroy$),
+        finalize(() => this.isLoading = false),
+        catchError((err: HttpErrorResponse) => {
+          const errMessage = err?.error?.message || "Erro ao cadastrar ficha!"
+          this.messageService.errorMessage(errMessage)
+          return throwError(() => err);
+        })
+        ).subscribe(() =>{
+          this.messageService.successMessage('Ficha cadastrada com sucesso!')
+          this.getPacients();
+          this.clearForm()
+      })
   }
 
   clearForm(): void {
@@ -98,6 +91,42 @@ export class CreateReportComponent implements OnInit, OnDestroy {
     this.disableReportForm();
     this.selectedPacienteId = 0;
   }
+
+  // LOAD INSTANCES MOCKADOS!
+  private loadInstances(): void {
+    this.createReportForm = this.formBuilder.group({
+      medicalHistory: ['Hipertensão controlada, histórico de asma na infância.', Validators.required],
+      currentMedications: ['Losartana 50mg, uso diário.', Validators.required],
+      cardiovascularIssues: [true],
+      diabetes: [false],
+      familyHistoryCardiovascularIssues: [true],
+      familyHistoryDiabetes: [false],
+      physicalActivity: ['Caminhada leve 3x por semana.', Validators.required],
+      smoker: [false],
+      alcoholConsumption: [2, [Validators.required, Validators.min(0), Validators.max(10)]],
+      emergencyContactName: ['Luciana Gomes', Validators.required],
+      emergencyContactPhone: ['(61) 91234-5678', [Validators.required, Validators.pattern(/^\(\d{2}\) \d{4,5}-\d{4}$/)]],
+      observations: ['Paciente relata dificuldade para dormir em períodos de estresse.']
+    });
+
+    //   this.createReportForm = this.formBuilder.group({
+    //     medicalHistory: ['', Validators.required],
+    //     currentMedications: ['', Validators.required],
+    //     cardiovascularIssues: [false],
+    //     diabetes: [false],
+    //     familyHistoryCardiovascularIssues: [false],
+    //     familyHistoryDiabetes: [false],
+    //     physicalActivity: ['', Validators.required],
+    //     smoker: [false],
+    //     alcoholConsumption: [0, [Validators.required, Validators.min(0), Validators.max(10)]],
+    //     emergencyContactName: ['', Validators.required],
+    //     emergencyContactPhone: ['', [Validators.required, Validators.pattern(/^\(\d{2}\) \d{4,5}-\d{4}$/)]],
+    //     observations: ['']
+    //   });
+
+    this.disableReportForm();
+  }
+
 
   ngOnDestroy(): void {
     this.destroy$.next();
