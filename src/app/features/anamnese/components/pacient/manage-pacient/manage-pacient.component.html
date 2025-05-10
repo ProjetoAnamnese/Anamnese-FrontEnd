@@ -225,7 +225,25 @@
               </nz-select>
             </nz-form-control>
           </nz-form-item>
+
+          <nz-form-item>
+            <nz-form-label [nzSpan]="2">Gênero</nz-form-label>
+            <nz-form-control [nzSpan]="22">
+              <nz-select
+                id="gender"
+                nzPlaceHolder="Gênero"
+                nzAllowClear
+                nzShowSearch
+                formControlName="gender"
+                required>
+                <nz-option [nzValue]="'Masculino'" [nzLabel]="'Masculino'"></nz-option>
+                <nz-option [nzValue]="'Feminino'" [nzLabel]="'Feminino'"></nz-option>
+                <nz-option [nzValue]="'Outro'" [nzLabel]="'Outro'"></nz-option>
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
         </nz-col>
+
       </nz-row>
     </form>
   </div>
