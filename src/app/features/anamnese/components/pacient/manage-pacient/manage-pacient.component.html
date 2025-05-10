@@ -142,9 +142,19 @@
                   (click)="openEditPacientModal(pacient)">
             <span nz-icon nzType="edit"></span>
           </button>
-          <button nz-button nzShape="circle" title="Visualizar ficha" style="margin-left: 5px">
+          <button
+            nz-button
+            (click)="openPacientReport(pacient)"
+            nzShape="circle"
+            title="Visualizar ficha"
+            style="margin-left: 5px"
+            [disabled]="!pacient.report"
+            nz-tooltip
+            [nzTooltipTitle]="pacient.report ? 'Visualizar ficha de anamnese' : 'Paciente ainda não possui ficha registrada'"
+          >
             <span nz-icon nzType="file-search"></span>
           </button>
+
         </td>
 
         <td>{{ pacient.username }}</td>
@@ -165,6 +175,8 @@
   </div>
 </nz-spin>
 
+
+<!-----------------MODAL PARA EDITAR PACIENTE----------------->
 <nz-modal
   [(nzVisible)]="editPacientModal"
   nzTitle="Editar Paciente"
@@ -247,7 +259,71 @@
       </nz-row>
     </form>
   </div>
-
-
 </nz-modal>
+
+<!-------------------MODAL PARA VISUALIZAR FICHA DO PACIENTE----------------->
+<nz-modal
+  [(nzVisible)]="showReportModal"
+  [nzTitle]="selectedReport?.pacientName || ''"
+  [nzFooter]="null"
+  [nzWidth]="800"
+  (nzOnCancel)="showReportModal = false"
+>
+  <div *nzModalContent>
+    <nz-descriptions
+      [nzColumn]="2"
+      nzBordered
+    >
+      <nz-descriptions-item nzTitle="Data da Ficha" [nzSpan]="2">
+        {{ selectedReport?.reportDateTime | date: 'dd/MM/yyyy HH:mm' }}
+      </nz-descriptions-item>
+
+      <nz-descriptions-item nzTitle="Histórico Médico" [nzSpan]="2">
+        {{ selectedReport?.medicalHistory }}
+      </nz-descriptions-item>
+
+      <nz-descriptions-item nzTitle="Medicações Atuais" [nzSpan]="2">
+        {{ selectedReport?.currentMedications }}
+      </nz-descriptions-item>
+
+      <nz-descriptions-item nzTitle="Problemas Cardiovasculares">
+        {{ selectedReport?.cardiovascularIssues ? 'Sim' : 'Não' }}
+      </nz-descriptions-item>
+
+      <nz-descriptions-item nzTitle="Diabetes">
+        {{ selectedReport?.diabetes ? 'Sim' : 'Não' }}
+      </nz-descriptions-item>
+
+      <nz-descriptions-item nzTitle="Hist. Fam. Cardiovasculares">
+        {{ selectedReport?.familyHistoryCardiovascularIssues ? 'Sim' : 'Não' }}
+      </nz-descriptions-item>
+
+      <nz-descriptions-item nzTitle="Hist. Fam. Diabetes">
+        {{ selectedReport?.familyHistoryDiabetes ? 'Sim' : 'Não' }}
+      </nz-descriptions-item>
+
+      <nz-descriptions-item nzTitle="Atividade Física" [nzSpan]="2">
+        {{ selectedReport?.physicalActivity }}
+      </nz-descriptions-item>
+
+      <nz-descriptions-item nzTitle="Fumante">
+        {{ selectedReport?.smoker ? 'Sim' : 'Não' }}
+      </nz-descriptions-item>
+
+      <nz-descriptions-item nzTitle="Álcool (0-10)">
+        {{ selectedReport?.alcoholConsumption }}
+      </nz-descriptions-item>
+
+      <nz-descriptions-item nzTitle="Contato de Emergência" [nzSpan]="2">
+        {{ selectedReport?.emergencyContactName }} - {{ selectedReport?.emergencyContactPhone }}
+      </nz-descriptions-item>
+
+      <nz-descriptions-item nzTitle="Observações" [nzSpan]="2">
+        {{ selectedReport?.observations || 'Nenhuma observação registrada.' }}
+      </nz-descriptions-item>
+    </nz-descriptions>
+  </div>
+</nz-modal>
+
+
 

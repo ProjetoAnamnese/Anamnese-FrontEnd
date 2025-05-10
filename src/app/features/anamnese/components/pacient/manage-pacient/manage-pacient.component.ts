@@ -7,6 +7,7 @@ import {UF_LIST} from "../../../../../shared/model/LIST_UF";
 import {SelectOption} from "../../../../../shared/interface/SelectOption";
 import {HttpErrorResponse} from "@angular/common/http";
 import {IPacient} from "../../../interfaces/IPacient";
+import {IReport} from "../../../interfaces/IReport";
 
 @Component({
   selector: 'app-manage-pacient',
@@ -16,11 +17,13 @@ import {IPacient} from "../../../interfaces/IPacient";
 export class ManagePacientComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject<void>();
   isLoading: boolean = false
+  showReportModal: boolean = false
   editPacientModal: boolean = false
   filterPacientForm !: FormGroup
   editPacientForm !: FormGroup
   pacientsData !: IPacient[]
   selectedPacient !: IPacient;
+  selectedReport !: IReport
   ufs: SelectOption[] = [];
   totalPacients: number = 0
   showPagination: boolean = true;
@@ -87,14 +90,20 @@ export class ManagePacientComponent implements OnInit, OnDestroy {
     this.pageSize = pageSize
   }
 
-  submitEdit() {
-    console.log('editou')
-  }
 
   openEditPacientModal(pacient: IPacient): void {
     this.selectedPacient = pacient;
     this.editPacientForm.patchValue(pacient)
     this.editPacientModal = true
+  }
+
+  openPacientReport(pacient: IPacient): void{
+    if(pacient.report){
+      this.selectedReport = pacient.report
+      this.showReportModal = true
+
+      console.log('REPORT SELECIONADO', this.selectedReport)
+    }
   }
 
   loadInstances() {

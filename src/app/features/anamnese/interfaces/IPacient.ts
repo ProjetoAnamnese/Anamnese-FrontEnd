@@ -1,3 +1,5 @@
+import {IReport} from "./IReport";
+
 export interface IPacient {
   pacientId: number;
   username: string;
@@ -16,22 +18,5 @@ export interface IPacient {
     pacientId: string;
     profissionalId: string;
   }
-  report?: {
-    reportId: number;
-    reportDateTime: string;
-    medicalHistory: string;
-    currentMedications: string;
-    cardiovascularIssues: boolean;
-    diabetes: boolean;
-    familyHistoryCardiovascularIssues: boolean;
-    familyHistoryDiabetes: boolean;
-    physicalActivity: string;
-    smoker: boolean;
-    alcoholConsumption: number;
-    emergencyContactName: string;
-    emergencyContactPhone: string;
-    observations: string;
-    pacientId: number;
-    pacientName: string;
-  };
+  report?: IReport
 }
