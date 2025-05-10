@@ -1,1 +1,197 @@
-<p>create-report works!</p>
+<nz-page-header class="mobile-header" nzTitle="Cadastrar Ficha Anamnese"></nz-page-header>
+<nz-divider></nz-divider>
+
+<form nz-form nzLayout="vertical" [formGroup]="createReportForm">
+  <h2>Histórico Médico</h2>
+  <nz-row nzGutter="12">
+    <nz-col nzSpan="24">
+      <nz-form-item>
+        <nz-form-label>Histórico Médico</nz-form-label>
+        <nz-form-control>
+          <textarea formControlName="medicalHistory" nz-input rows="3" placeholder="Descreva o histórico médico do paciente"></textarea>
+        </nz-form-control>
+      </nz-form-item>
+    </nz-col>
+
+    <nz-col nzSpan="24">
+      <nz-form-item>
+        <nz-form-label>Medicações Atuais</nz-form-label>
+        <nz-form-control>
+          <textarea formControlName="currentMedications" nz-input rows="3" placeholder="Liste as medicações em uso atualmente"></textarea>
+        </nz-form-control>
+      </nz-form-item>
+    </nz-col>
+  </nz-row>
+  <nz-divider></nz-divider>
+  <h2>Condições Clínicas</h2>
+  <nz-row nzGutter="12">
+    <nz-col nzSpan="6">
+      <nz-form-item>
+        <nz-form-label>
+          <label>
+            <input
+              type="checkbox"
+              formControlName="cardiovascularIssues"
+            />
+            Problemas Cardiovasculares
+          </label>
+        </nz-form-label>
+      </nz-form-item>
+    </nz-col>
+
+    <nz-col nzSpan="6">
+      <nz-form-item>
+        <nz-form-label>
+          <label>
+            <input
+              type="checkbox"
+              formControlName="diabetes"
+            />
+            Diabetes
+          </label>
+        </nz-form-label>
+      </nz-form-item>
+    </nz-col>
+
+
+    <nz-col nzSpan="4">
+      <nz-form-item>
+        <nz-form-label>
+          <label>
+            <input
+              type="checkbox"
+              formControlName="familyHistoryCardiovascularIssues"
+            />
+            Histórico Familiar Cardiovascular
+          </label>
+        </nz-form-label>
+      </nz-form-item>
+    </nz-col>
+
+    <nz-col nzSpan="4">
+      <nz-form-item>
+        <nz-form-label>
+          <label>
+            <input
+              type="checkbox"
+              formControlName="familyHistoryDiabetes"
+            />
+            Histórico Familiar de Diabetes
+          </label>
+        </nz-form-label>
+      </nz-form-item>
+    </nz-col>
+  </nz-row>
+
+
+<nz-divider></nz-divider>
+  <h2>Estilo de Vida</h2>
+  <nz-row nzGutter="12">
+    <nz-col nzSpan="12">
+      <nz-form-item>
+        <nz-form-label>Atividade Física</nz-form-label>
+        <nz-form-control nzErrorTip="Informe a atividade física">
+          <input
+            formControlName="physicalActivity"
+            nz-input
+            placeholder="Descreva o tipo e frequência"
+          />
+        </nz-form-control>
+      </nz-form-item>
+    </nz-col>
+
+    <nz-col nzSpan="6">
+      <nz-form-item>
+        <nz-form-label>Consumo de Álcool (0 a 10)</nz-form-label>
+        <nz-form-control nzErrorTip="Valor entre 0 e 10">
+          <input
+            type="number"
+            formControlName="alcoholConsumption"
+            nz-input
+            min="0"
+            max="10"
+          />
+        </nz-form-control>
+      </nz-form-item>
+    </nz-col>
+
+    <nz-col nzSpan="6">
+      <nz-form-item>
+        <nz-form-label>Fumante</nz-form-label>
+        <nz-form-control>
+          <label>
+            <input
+              type="checkbox"
+              formControlName="smoker"
+              style="transform: scale(1.3); margin-right: 8px;"
+            />
+          </label>
+        </nz-form-control>
+      </nz-form-item>
+    </nz-col>
+  </nz-row>
+
+
+
+  <h2>Contato de Emergência</h2>
+  <nz-row nzGutter="12">
+    <nz-col nzSpan="12">
+      <nz-form-item>
+        <nz-form-label>Nome</nz-form-label>
+        <nz-form-control>
+          <input formControlName="emergencyContactName" nz-input placeholder="Nome do contato de emergência" />
+        </nz-form-control>
+      </nz-form-item>
+    </nz-col>
+
+    <nz-col nzSpan="12">
+      <nz-form-item>
+        <nz-form-label>Telefone</nz-form-label>
+        <nz-form-control>
+          <input formControlName="emergencyContactPhone" nz-input placeholder="(00) 00000-0000" mask="(00) 0*-0000"/>
+        </nz-form-control>
+      </nz-form-item>
+    </nz-col>
+  </nz-row>
+
+    <nz-divider></nz-divider>
+
+  <h2>Observações</h2>
+  <nz-row nzGutter="12">
+    <nz-col nzSpan="24">
+      <nz-form-item>
+        <nz-form-control>
+          <textarea formControlName="observations" nz-input rows="3" placeholder="Informações adicionais, alergias, restrições..."></textarea>
+        </nz-form-control>
+      </nz-form-item>
+    </nz-col>
+  </nz-row>
+
+  <nz-row>
+    <nz-col class="button-group" nzSpan="24">
+      <button
+        nz-button
+        nzSize="large"
+        type="button"
+        style="margin-right: 5px"
+        [nzLoading]="isLoading"
+        [disabled]="isLoading"
+        (click)="clearForm()"
+      >
+        Limpar
+      </button>
+      <button
+        nz-button
+        nzType="primary"
+        nzSize="large"
+        type="submit"
+        [disabled]="isLoading || !createReportForm.valid"
+        [nzLoading]="isLoading"
+      >
+        <i nz-icon nzType="plus" nzTheme="outline"></i>
+        Cadastrar Ficha
+      </button>
+
+    </nz-col>
+  </nz-row>
+</form>

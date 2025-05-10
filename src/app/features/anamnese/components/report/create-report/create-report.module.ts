@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import {CreateReportRoutingModule} from "./create-report-routing.module";
 import {SharedModule} from "../../../../../shared/shared.module";
 import {CreateReportComponent} from "./create-report.component";
+import {NgxMaskDirective} from "ngx-mask";
+import {NzCheckboxModule} from "ng-zorro-antd/checkbox";
 
 
 
@@ -9,7 +11,9 @@ import {CreateReportComponent} from "./create-report.component";
   declarations: [CreateReportComponent],
   imports: [
     SharedModule,
-    CreateReportRoutingModule
+    CreateReportRoutingModule,
+    NzCheckboxModule,
+    NgxMaskDirective
   ]
 })
 export class CreateReportModule { }
