@@ -27,6 +27,10 @@ const routes: Routes = [
       {
         path: 'manage-pacient',
         loadChildren: () => import('./features/anamnese/components/pacient/manage-pacient/manage-pacient.module').then(m => m.ManagePacientModule),
+      },
+      {
+        path: 'create-report',
+        loadChildren: () => import('./features/anamnese/components/report/create-report/create-report.module').then(m => m.CreateReportModule),
       }
     ]
 
