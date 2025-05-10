@@ -65,9 +65,9 @@ export class PacientService {
     );
   }
 
-  editPacient(requestData: EditPacientRequest): Observable<void> {
+  editPacient(requestData: EditPacientRequest, pacientId: number): Observable<void> {
     return this.http.put<void>(
-      `${this.API_URL}/api/Pacient/update-pacient/${requestData.pacient_id}`,
+      `${this.API_URL}/api/Pacient/update-pacient/${pacientId}`,
       requestData,
       this.httpOptions
     );

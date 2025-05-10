@@ -1,5 +1,5 @@
 export interface IPacient {
-  id: number;
+  pacientId: number;
   username: string;
   email: string;
   address: string;

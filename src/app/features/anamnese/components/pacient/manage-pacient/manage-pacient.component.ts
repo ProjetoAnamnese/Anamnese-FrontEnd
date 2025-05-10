@@ -13,73 +13,115 @@ import {IPacient} from "../../../interfaces/IPacient";
   templateUrl: './manage-pacient.component.html',
   styleUrls: ['./manage-pacient.component.scss']
 })
-export class ManagePacientComponent implements OnInit , OnDestroy {
+export class ManagePacientComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject<void>();
-  isLoading = false
+  isLoading: boolean = false
+  editPacientModal: boolean = false
   filterPacientForm !: FormGroup
+  editPacientForm !: FormGroup
   pacientsData !: IPacient[]
+  selectedPacient !: IPacient;
   ufs: SelectOption[] = [];
   totalPacients: number = 0
   showPagination: boolean = true;
-  showMoreFilters: boolean = false;
   pageIndex = 1;
   pageSize = 10;
 
   constructor(
     private formBuilder: FormBuilder,
     private pacientService: PacientService,
-    private messageService: MessageService ) {
+    private messageService: MessageService) {
   }
+
   ngOnInit(): void {
-        this.loadInstances()
-        this.getPacients()
-    }
+    this.loadInstances()
+    this.getPacients()
+  }
 
 
-    getPacients() {
-      this.isLoading = true
-      this.pacientService.getAllPacients(this.filterPacientForm.value).pipe(takeUntil(this.destroy$),
-        finalize(() => this.isLoading = false),
-        catchError((err: HttpErrorResponse) => {
-          const errorMessage = err.error?.message || 'Erro ao buscar pacientes!';
-          console.log(err);
-          this.messageService.errorMessage(errorMessage);
-          return throwError(() => err);
-        })
-      ).subscribe((res) =>{
-        console.log("AQUI OS PACIENTES", res)
-        this.pacientsData = res.items;
-        this.totalPacients = res.totalCount
+  getPacients() {
+    this.isLoading = true
+    this.pacientService.getAllPacients(this.filterPacientForm.value).pipe(takeUntil(this.destroy$),
+      finalize(() => this.isLoading = false),
+      catchError((err: HttpErrorResponse) => {
+        const errorMessage = err.error?.message || 'Erro ao buscar pacientes!';
+        console.log(err);
+        this.messageService.errorMessage(errorMessage);
+        return throwError(() => err);
       })
-    }
+    ).subscribe((res) => {
+      this.pacientsData = res.items;
+      this.totalPacients = res.totalCount
+    })
+  }
 
-    clearForm(){
-      this.loadInstances()
-      this.getPacients()
-    }
+  updatePacient() {
+    this.isLoading = true
+    console.log('AQUI O THIS.SELECTED', this.selectedPacient)
+    this.pacientService.editPacient(this.editPacientForm.value, this.selectedPacient.pacientId).pipe(takeUntil(this.destroy$),
+      finalize(() => this.isLoading = false),
+      catchError((err: HttpErrorResponse) => {
+        const errorMessage = err.error?.message || 'Erro ao editar paciente!';
+        console.log(err);
+        this.messageService.errorMessage(errorMessage);
+        return throwError(() => err);
+      })
+    ).subscribe((res) => {
+      this.getPacients();
+      this.messageService.successMessage('Paciente atualizado com sucesso!');
+      this.editPacientModal = false
+    })
+  }
+
+  clearForm() {
+    this.loadInstances()
+    this.getPacients()
+  }
+
   onPageIndexChange(pageIndex: number): void {
     this.pageIndex = pageIndex;
   }
 
-  onPageSizeChange(pageSize: number):void{
+  onPageSizeChange(pageSize: number): void {
     this.pageSize = pageSize
   }
 
-  loadInstances(){
-     this.filterPacientForm = this.formBuilder.group({
-       username: ['',],
-       email: [''],
-       phone: [''],
-       address: [''],
-       uf: [''],
-       gender: [''],
-     })
+  submitEdit() {
+    console.log('editou')
+  }
 
-      this.ufs = UF_LIST.map(state => ({
-        value: state.sigla,
-        label: state.sigla
-      }));
-    }
+  openEditPacientModal(pacient: IPacient): void {
+    this.selectedPacient = pacient;
+    this.editPacientForm.patchValue(pacient)
+    this.editPacientModal = true
+  }
+
+  loadInstances() {
+    this.filterPacientForm = this.formBuilder.group({
+      username: ['',],
+      email: [''],
+      phone: [''],
+      address: [''],
+      uf: [''],
+      gender: [''],
+    })
+
+    this.editPacientForm = this.formBuilder.group({
+      username: [''],
+      phone: [''],
+      email: [''],
+      profession: [''],
+      gender: [''],
+      uf: [''],
+      birth: [''],
+      address: [''],
+    })
+
+    this.ufs = UF_LIST.map(state => ({
+      value: state.sigla,
+      label: state.sigla
+    }));
+  }
 
   ngOnDestroy(): void {
     this.destroy$.next()
