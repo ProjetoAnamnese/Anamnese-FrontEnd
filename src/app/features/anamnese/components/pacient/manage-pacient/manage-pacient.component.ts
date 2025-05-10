@@ -73,6 +73,7 @@ export class ManagePacientComponent implements OnInit, OnDestroy {
     })
   }
 
+
   clearForm() {
     this.loadInstances()
     this.getPacients()
