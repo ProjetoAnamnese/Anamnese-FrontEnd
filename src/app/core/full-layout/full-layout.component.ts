@@ -35,7 +35,7 @@ export class FullLayoutComponent implements OnInit {
         .join("")
         .substr(0, 2);
     }
-  }
+    }
   logout(): void {
     this.modalService.confirm({
       nzTitle: "Sair",

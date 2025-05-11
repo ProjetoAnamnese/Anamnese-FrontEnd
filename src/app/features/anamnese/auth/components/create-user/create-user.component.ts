@@ -1,13 +1,14 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { NzModalRef } from 'ng-zorro-antd/modal';
-import {catchError, finalize, of, Subject, takeUntil, throwError} from "rxjs";
-import {UserService} from "../../../service/user.service";
-import {HttpErrorResponse} from "@angular/common/http";
-import {MessageService} from "../../../../../shared/services/message.service";
-import {CreateUserResponse} from "../../models/create-user-response";
-import {SelectOption} from "../../../../../shared/interface/SelectOption";
-import {STATES_LIST} from "../../../../../shared/utils/StatesList";
+import { catchError, finalize, of, Subject, takeUntil, throwError } from "rxjs";
+import { UserService } from "../../../service/user.service";
+import { HttpErrorResponse } from "@angular/common/http";
+import { MessageService } from "../../../../../shared/services/message.service";
+import { CreateUserResponse } from "../../models/create-user-response";
+import { SelectOption } from "../../../../../shared/interface/SelectOption";
+import { STATES_LIST } from "../../../../../shared/utils/StatesList";
+import {MedicalSpecialty} from "../../../../../shared/enums/MedicalSpecialityEnum";
 
 @Component({
   selector: 'app-create-user',
@@ -19,6 +20,7 @@ export class CreateUserComponent implements OnInit, OnDestroy {
   createUserForm!: FormGroup;
   isLoading: boolean = true;
   states: SelectOption[] = [];
+  specialites: SelectOption[] = [];
 
   constructor(
     private userService: UserService,
@@ -61,8 +63,6 @@ export class CreateUserComponent implements OnInit, OnDestroy {
     });
   }
 
-
-
   private loadInstances() {
     this.createUserForm = this.formBuilder.group({
       username: ['gabrielo', [Validators.required]],
@@ -74,6 +74,11 @@ export class CreateUserComponent implements OnInit, OnDestroy {
     this.states = STATES_LIST.map(state => ({
       value: state.sigla,
       label: state.name
+    }));
+
+    this.specialites = Object.values(MedicalSpecialty).map(s => ({
+      label: s,
+      value: s
     }));
   }
 

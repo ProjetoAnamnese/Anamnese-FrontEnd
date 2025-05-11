@@ -188,47 +188,48 @@
   <div *nzModalContent>
     <form [formGroup]="editPacientForm">
       <nz-row nzGutter="24">
+
         <nz-col nzSpan="24">
+          <h3>Nome</h3>
           <nz-form-item>
-            <nz-form-label [nzSpan]="2" nzFor="username">Nome </nz-form-label>
-            <nz-form-control [nzSpan]="22">
+            <nz-form-control [nzSpan]="24">
               <input formControlName="username" id="username" nz-input placeholder="Nome completo" />
             </nz-form-control>
           </nz-form-item>
 
+
+          <h3>Telefone</h3>
           <nz-form-item>
-            <nz-form-label [nzSpan]="2" nzFor="phone">Telefone</nz-form-label>
-            <nz-form-control [nzSpan]="22">
+            <nz-form-control [nzSpan]="24">
               <input formControlName="phone" id="phone" mask="(00) 0*-0000" nz-input placeholder="Telefone" />
             </nz-form-control>
           </nz-form-item>
 
+          <h3>E-mail</h3>
           <nz-form-item>
-            <nz-form-label [nzSpan]="2" nzFor="email">E-mail</nz-form-label>
-            <nz-form-control [nzSpan]="22">
+            <nz-form-control [nzSpan]="24">
               <input formControlName="email" id="email" nz-input type="email" placeholder="E-mail" />
             </nz-form-control>
           </nz-form-item>
 
+          <h3>Profissão</h3>
           <nz-form-item>
-            <nz-form-label [nzSpan]="2" nzFor="profession">Profissão</nz-form-label>
-            <nz-form-control [nzSpan]="22">
+            <nz-form-control [nzSpan]="24">
               <input formControlName="profession" id="profession" nz-input placeholder="Profissão" />
             </nz-form-control>
           </nz-form-item>
 
+          <h3>Endereço</h3>
           <nz-form-item>
-            <nz-form-label [nzSpan]="2" nzFor="address">Endereço</nz-form-label>
-            <nz-form-control [nzSpan]="22">
+            <nz-form-control [nzSpan]="24">
               <input formControlName="address" id="address" nz-input placeholder="Endereço" />
             </nz-form-control>
           </nz-form-item>
 
+          <h3>UF</h3>
           <nz-form-item>
-            <nz-form-label [nzSpan]="2">UF</nz-form-label>
-            <nz-form-control [nzSpan]="22">
+            <nz-form-control [nzSpan]="24">
               <nz-select
-
                 nzPlaceHolder="Selecione UF"
                 nzAllowClear
                 nzShowSearch
@@ -239,9 +240,9 @@
             </nz-form-control>
           </nz-form-item>
 
+          <h3>Gênero</h3>
           <nz-form-item>
-            <nz-form-label [nzSpan]="2">Gênero</nz-form-label>
-            <nz-form-control [nzSpan]="22">
+            <nz-form-control [nzSpan]="24">
               <nz-select
                 nzPlaceHolder="Gênero"
                 nzAllowClear
@@ -255,7 +256,6 @@
             </nz-form-control>
           </nz-form-item>
         </nz-col>
-
       </nz-row>
     </form>
   </div>
