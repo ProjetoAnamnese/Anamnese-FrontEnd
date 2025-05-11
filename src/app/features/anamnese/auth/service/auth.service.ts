@@ -56,4 +56,10 @@ export class AuthService {
     )
   }
 
+  public logout(): void {
+    localStorage.clear();
+    this.cookieService.delete('USER_INFO')
+    this.router.navigate(['/login']);
+    location.reload();
+  }
 }

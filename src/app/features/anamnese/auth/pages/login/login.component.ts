@@ -19,6 +19,7 @@ import {environment} from "../../../../../../../env/env";
 export class LoginComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject<void>();
   private readonly USER_AUTH = environment.COOKIES_VALUE.user_auth;
+  private readonly USER_NAME = environment.COOKIES_VALUE.username;
   loginForm!: FormGroup;
   requestPasswordForm!: FormGroup;
   passwordVisible = false;
@@ -59,7 +60,9 @@ export class LoginComponent implements OnInit, OnDestroy {
 
         )
         .subscribe((res) => {
+          console.log('res aqui', res)
           this.cookieService.set(this.USER_AUTH, res?.token)
+          this.cookieService.set(this.USER_NAME, res?.username)
           this.router.navigate(['/dashboard']);
         });
     }
