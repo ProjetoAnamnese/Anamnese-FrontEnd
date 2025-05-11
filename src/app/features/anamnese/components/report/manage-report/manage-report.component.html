@@ -1,1 +1,111 @@
-<p>manage-report works!</p>
+<nz-page-header class="mobile-header" nzTitle="Gerenciar Fichas"></nz-page-header>
+<nz-divider></nz-divider>
+
+<form nz-form nzLayout="vertical" [formGroup]="reportFilterForm" (ngSubmit)="getReports()">
+  <h1>Filtros</h1>
+  <nz-row nzGutter="12">
+
+    <nz-col nzSm="8" nzXs="24">
+      <nz-form-item>
+        <nz-form-label>Paciente</nz-form-label>
+        <nz-form-control>
+          <nz-select
+            nzPlaceHolder="Selecione o paciente"
+            nzAllowClear
+            formControlName="pacientId"
+            nzShowSearch
+          >
+            <nz-option
+              *ngFor="let pacient of pacientsData"
+              [nzValue]="pacient.pacientId"
+              [nzLabel]="pacient.username"
+            ></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </nz-col>
+    <nz-col nzSm="8" nzXs="24">
+      <nz-form-item>
+        <nz-form-label>Problemas Cardiovasculares</nz-form-label>
+        <nz-form-control>
+          <nz-select
+            nzPlaceHolder="Selecionar"
+            nzAllowClear
+            nzShowSearch
+            formControlName="familyHistoryCardiovascularIssues"
+            required>
+            <nz-option [nzValue]="true" [nzLabel]="'Sim'"></nz-option>
+            <nz-option [nzValue]="false" [nzLabel]="'Não'"></nz-option>
+            <nz-option [nzValue]='' [nzLabel]="'Todos'"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </nz-col>
+    <nz-col nzSm="8" nzXs="24">
+      <nz-form-item>
+        <nz-form-label>Diabetes</nz-form-label>
+        <nz-form-control>
+          <nz-select
+            nzPlaceHolder="Selecionar"
+            nzAllowClear
+            nzShowSearch
+            formControlName="diabetes"
+            required>
+            <nz-option [nzValue]="true" [nzLabel]="'Sim'"></nz-option>
+            <nz-option [nzValue]="false" [nzLabel]="'Não'"></nz-option>
+            <nz-option [nzValue]='' [nzLabel]="'Todos'"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </nz-col>
+
+    <nz-col nzSm="8" nzXs="24">
+      <nz-form-item>
+        <nz-form-label>Fumante</nz-form-label>
+        <nz-form-control>
+          <nz-select
+            nzPlaceHolder="Selecionar"
+            nzAllowClear
+            nzShowSearch
+            formControlName="smoker"
+            required>
+            <nz-option [nzValue]="true" [nzLabel]="'Sim'"></nz-option>
+            <nz-option [nzValue]="false" [nzLabel]="'Não'"></nz-option>
+            <nz-option [nzValue]='' [nzLabel]="'Todos'"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </nz-col>
+  </nz-row>
+
+  <nz-row>
+    <nz-col class="button-group" nzSpan="24">
+      <button
+        nz-button
+        nzSize="large"
+        type="button"
+        style="margin-right: 5px"
+        [nzLoading]="isLoading"
+        [disabled]="isLoading"
+        (click)="clearForm()"
+      >
+        Limpar
+      </button>
+      <button
+        nz-button
+        nzType="primary"
+        nzSize="large"
+        type="submit"
+        [disabled]="isLoading"
+        [nzLoading]="isLoading"
+      >
+        <i nz-icon nzType="search" nzTheme="outline"></i>
+        Filtrar
+      </button>
+
+    </nz-col>
+  </nz-row>
+
+
+
+</form>

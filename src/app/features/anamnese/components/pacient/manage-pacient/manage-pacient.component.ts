@@ -84,10 +84,12 @@ export class ManagePacientComponent implements OnInit, OnDestroy {
 
   onPageIndexChange(pageIndex: number): void {
     this.pageIndex = pageIndex;
+    this.getPacients()
   }
 
   onPageSizeChange(pageSize: number): void {
     this.pageSize = pageSize
+    this.getPacients()
   }
 
 

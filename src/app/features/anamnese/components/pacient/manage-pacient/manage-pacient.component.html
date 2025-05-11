@@ -121,6 +121,8 @@
       [nzTotal]="totalPacients"
       [nzPageIndex]="pageIndex"
       [nzPageSize]="pageSize"
+      (nzPageIndexChange)="onPageIndexChange($event)"
+      (nzPageSizeChange)="onPageSizeChange($event)"
     >
       <thead>
       <tr>
