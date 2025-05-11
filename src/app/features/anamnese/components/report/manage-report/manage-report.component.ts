@@ -6,6 +6,7 @@ import {MessageService} from "../../../../../shared/services/message.service";
 import {HttpErrorResponse} from "@angular/common/http";
 import {IPacient} from "../../../interfaces/IPacient";
 import {ReportsService} from "../../../service/reports.service";
+import {IReport} from "../../../interfaces/IReport";
 
 @Component({
   selector: 'app-manage-report',
@@ -16,6 +17,7 @@ export class ManageReportComponent implements OnInit , OnDestroy {
    private destroy$ = new Subject<void>();
    reportFilterForm !:FormGroup
   pacientsData !: IPacient[]
+  reportsData !: IReport[]
   totalReports: number = 0
   isLoading: boolean = false
   showPagination: boolean = true;
@@ -49,6 +51,8 @@ export class ManageReportComponent implements OnInit , OnDestroy {
       })
       ).subscribe((res) =>{
         console.log('AQUI A RES DOS REPORTS', res)
+        this.reportsData = res.items;
+        this.totalReports = res.totalCount
     })
   }
   getPacients() {
@@ -64,6 +68,10 @@ export class ManageReportComponent implements OnInit , OnDestroy {
     ).subscribe((res) => {
       this.pacientsData = res.items;
     })
+  }
+
+  openEditReportModal(report : IReport){
+    console.log("REPORT SELECIONADO", report)
   }
 
 

@@ -136,11 +136,29 @@
         <th>Fumante</th>
       </tr>
       </thead>
+      <tbody>
+      <tr *ngFor="let report of reportsData">
+        <td>
+          <button nz-button nzShape="circle" title="Editar ficha" style="margin-left: 5px"
+                  (click)="openEditReportModal(report)">
+            <span nz-icon nzType="edit"></span>
+          </button>
+        </td>
+        <td>{{ report.pacientName }}</td>
+        <td>{{ report.emergencyContactName ? report.emergencyContactName : '---' }}</td>
+        <td>{{ report.emergencyContactPhone ? report.emergencyContactPhone : '---' }}</td>
+        <td>{{ report.cardiovascularIssues ? 'Sim' : 'Não' }}</td>
+        <td>{{ report.diabetes ? 'Sim' : 'Não' }}</td>
+        <td>{{ report.smoker ? 'Sim' : 'Não' }}</td>
 
+
+      </tr>
+
+
+      </tbody>
 
 
     </nz-table>
-
 
 
   </div>

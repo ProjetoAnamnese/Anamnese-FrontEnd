@@ -6,6 +6,7 @@ import {FormGroup} from "@angular/forms";
 import {environment} from "../../../../../env/env";
 import {ReportRequest} from "../../../shared/dtos/report/CreateReportRequest";
 import {IReport} from "../interfaces/IReport";
+import {PagedResponse} from "../../../shared/interface/PagedResponse";
 
 @Injectable({
   providedIn: 'root'
@@ -32,9 +33,9 @@ export class ReportsService {
   }
 
 
-  getAllReports(filters?: any): Observable<Array<IReport>> {
+  getAllReports(filters?: any): Observable<PagedResponse<IReport>> {
     const params = new HttpParams({ fromObject: filters });
-    return this.http.get<Array<IReport>>(`${this.API_URL}/api/Report/get-reports`,
+    return this.http.get<PagedResponse<IReport>>(`${this.API_URL}/api/Report/get-reports`,
       { headers: this.httpOptions.headers, params }
     )
   }
