@@ -13,10 +13,10 @@ import {IReport} from "../../../interfaces/IReport";
   templateUrl: './manage-report.component.html',
   styleUrls: ['./manage-report.component.scss']
 })
-export class ManageReportComponent implements OnInit , OnDestroy {
+export class ManageReportComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject<void>();
-  reportFilterForm !:FormGroup
-  editReportForm!:FormGroup
+  reportFilterForm !: FormGroup
+  editReportForm!: FormGroup
   pacientsData !: IPacient[]
   reportsData !: IReport[]
   selectedReport!: IReport
@@ -35,29 +35,28 @@ export class ManageReportComponent implements OnInit , OnDestroy {
   }
 
   ngOnInit(): void {
-        this.loadInstances();
-        this.getPacients();
-        this.getReports()
-    }
+    this.loadInstances();
+    this.getPacients();
+    this.getReports()
+  }
 
 
-
-  getReports(){
-     console.log("AQUI O FORM", this.reportFilterForm.value)
+  getReports() {
     this.isLoading = true
     this.reportService.getAllReports(this.reportFilterForm.value).pipe(takeUntil(this.destroy$),
       finalize(() => this.isLoading = false),
-      catchError((err: HttpErrorResponse) =>{
+      catchError((err: HttpErrorResponse) => {
         const errMessage = err.error?.message || 'Erro ao buscar fichas!';
         this.messageService.errorMessage(errMessage)
         return throwError(() => err);
       })
-      ).subscribe((res) =>{
-        console.log('AQUI A RES DOS REPORTS', res)
-        this.reportsData = res.items;
-        this.totalReports = res.totalCount
+    ).subscribe((res) => {
+      console.log('AQUI A RES DOS REPORTS', res)
+      this.reportsData = res.items;
+      this.totalReports = res.totalCount
     })
   }
+
   getPacients() {
     this.isLoading = true
     this.pacientService.getAllPacients().pipe(takeUntil(this.destroy$),
@@ -72,11 +71,26 @@ export class ManageReportComponent implements OnInit , OnDestroy {
       this.pacientsData = res.items;
     })
   }
-  handleUpdateReport(){
 
+  handleUpdateReport() {
+    this.isLoading = true
+    this.reportService.editReport(this.selectedReport.reportId, this.editReportForm.value)
+      .pipe(takeUntil(this.destroy$),
+        finalize(() => this.isLoading = false),
+        catchError((err: HttpErrorResponse) => {
+          const errMessage = err.error?.message || 'Erro ao editar ficha!';
+          console.log(err);
+          this.messageService.errorMessage(errMessage);
+          return throwError(() => err);
+        }))
+      .subscribe(() => {
+        this.messageService.successMessage('Ficha atualizada com sucesso!')
+        this.getReports()
+        this.showEditReportModal = false
+      })
   }
 
-  openEditReportModal(report : IReport){
+  openEditReportModal(report: IReport) {
     this.selectedReport = report
     this.editReportForm.patchValue(report)
     this.showEditReportModal = true
@@ -93,18 +107,18 @@ export class ManageReportComponent implements OnInit , OnDestroy {
     this.getReports()
   }
 
-  clearForm(){
-     this.loadInstances()
-     this.getReports()
+  clearForm() {
+    this.loadInstances()
+    this.getReports()
   }
 
-  private loadInstances(){
-     this.reportFilterForm = this.formBuilder.group({
-       pacientId: [''],
-       familyHistoryCardiovascularIssues: [''],
-       smoker: [''],
-       diabetes: [''],
-     })
+  private loadInstances() {
+    this.reportFilterForm = this.formBuilder.group({
+      pacientId: [''],
+      familyHistoryCardiovascularIssues: [''],
+      smoker: [''],
+      diabetes: [''],
+    })
 
     this.editReportForm = this.formBuilder.group({
       medicalHistory: [''],

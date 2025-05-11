@@ -186,42 +186,40 @@
               </nz-form-item>
 
               <h3>Observações</h3>
-              <nz-col nzSpan="24">
-                <nz-form-item>
-                  <nz-form-control>
-                    <textarea formControlName="observations" nz-input rows="3"></textarea>
-                  </nz-form-control>
-                </nz-form-item>
-              </nz-col>
+              <nz-form-item>
+                <nz-form-control>
+                  <textarea formControlName="observations" nz-input rows="3"></textarea>
+                </nz-form-control>
+              </nz-form-item>
             </nz-col>
           </nz-row>
         </nz-tab>
 
         <nz-tab nzTitle="Condições Clínicas">
           <nz-form-item>
-            <label >
+            <label>
               <input type="checkbox" formControlName="cardiovascularIssues"/>
               Problemas Cardiovasculares
             </label>
           </nz-form-item>
 
           <nz-form-item>
-            <label >
-              <input type="checkbox" formControlName="diabetes" />
+            <label>
+              <input type="checkbox" formControlName="diabetes"/>
               Diabetes
             </label>
           </nz-form-item>
 
           <nz-form-item>
-            <label >
-              <input type="checkbox" formControlName="familyHistoryCardiovascularIssues"  />
+            <label>
+              <input type="checkbox" formControlName="familyHistoryCardiovascularIssues"/>
               Histórico Familiar Cardiovascular
             </label>
           </nz-form-item>
 
           <nz-form-item>
             <label>
-              <input type="checkbox" formControlName="familyHistoryDiabetes" />
+              <input type="checkbox" formControlName="familyHistoryDiabetes"/>
               Histórico Familiar de Diabetes
             </label>
           </nz-form-item>
@@ -232,7 +230,7 @@
           <h3>Atividade Física</h3>
           <nz-form-item>
             <nz-form-control>
-              <input formControlName="physicalActivity" nz-input placeholder="Ex: Caminhada 3x por semana" />
+              <input formControlName="physicalActivity" nz-input placeholder="Ex: Caminhada 3x por semana"/>
             </nz-form-control>
           </nz-form-item>
 
@@ -240,14 +238,14 @@
           <h3>Consumo de Álcool (0-10)</h3>
           <nz-form-item>
             <nz-form-control>
-              <input type="number" formControlName="alcoholConsumption" nz-input min="0" max="10" />
+              <input type="number" formControlName="alcoholConsumption" nz-input min="0" max="10"/>
             </nz-form-control>
           </nz-form-item>
 
           <h3>Fumante</h3>
           <nz-form-item>
             <nz-form-control>
-              <input type="checkbox" formControlName="smoker" />
+              <input type="checkbox" formControlName="smoker"/>
             </nz-form-control>
           </nz-form-item>
         </nz-tab>
@@ -256,14 +254,15 @@
           <h3>Nome</h3>
           <nz-form-item>
             <nz-form-control>
-              <input formControlName="emergencyContactName" nz-input />
+              <input formControlName="emergencyContactName" nz-input/>
             </nz-form-control>
           </nz-form-item>
 
           <h3>Telefone</h3>
           <nz-form-item>
             <nz-form-control>
-              <input formControlName="emergencyContactPhone" nz-input placeholder="(00) 00000-0000" mask="(00) 0*-0000" />
+              <input formControlName="emergencyContactPhone" nz-input placeholder="(00) 00000-0000"
+                     mask="(00) 0*-0000"/>
             </nz-form-control>
           </nz-form-item>
         </nz-tab>
