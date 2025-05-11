@@ -150,16 +150,126 @@
         <td>{{ report.cardiovascularIssues ? 'Sim' : 'Não' }}</td>
         <td>{{ report.diabetes ? 'Sim' : 'Não' }}</td>
         <td>{{ report.smoker ? 'Sim' : 'Não' }}</td>
-
-
       </tr>
-
-
       </tbody>
-
-
     </nz-table>
-
-
   </div>
 </nz-spin>
+
+
+<!-----------------MODAL PARA EDITAR REPORT----------------->
+<nz-modal
+  [(nzVisible)]="showEditReportModal"
+  nzTitle="Editar Ficha - {{selectedReport?.pacientName}}"
+  [nzWidth]="800"
+  (nzOnOk)="handleUpdateReport()"
+  (nzOnCancel)="showEditReportModal = false"
+>
+  <div *nzModalContent>
+    <form [formGroup]="editReportForm">
+      <nz-tabset>
+        <nz-tab nzTitle="Histórico Médico">
+          <nz-row nzGutter="24">
+            <nz-col nzSpan="24">
+              <h3>Histórico</h3>
+              <nz-form-item>
+                <nz-form-control>
+                  <textarea formControlName="medicalHistory" nz-input rows="3"></textarea>
+                </nz-form-control>
+              </nz-form-item>
+
+              <h3>Medicações</h3>
+              <nz-form-item>
+                <nz-form-control>
+                  <textarea formControlName="currentMedications" nz-input rows="3"></textarea>
+                </nz-form-control>
+              </nz-form-item>
+
+              <h3>Observações</h3>
+              <nz-col nzSpan="24">
+                <nz-form-item>
+                  <nz-form-control>
+                    <textarea formControlName="observations" nz-input rows="3"></textarea>
+                  </nz-form-control>
+                </nz-form-item>
+              </nz-col>
+            </nz-col>
+          </nz-row>
+        </nz-tab>
+
+        <nz-tab nzTitle="Condições Clínicas">
+          <nz-form-item>
+            <label >
+              <input type="checkbox" formControlName="cardiovascularIssues"/>
+              Problemas Cardiovasculares
+            </label>
+          </nz-form-item>
+
+          <nz-form-item>
+            <label >
+              <input type="checkbox" formControlName="diabetes" />
+              Diabetes
+            </label>
+          </nz-form-item>
+
+          <nz-form-item>
+            <label >
+              <input type="checkbox" formControlName="familyHistoryCardiovascularIssues"  />
+              Histórico Familiar Cardiovascular
+            </label>
+          </nz-form-item>
+
+          <nz-form-item>
+            <label>
+              <input type="checkbox" formControlName="familyHistoryDiabetes" />
+              Histórico Familiar de Diabetes
+            </label>
+          </nz-form-item>
+        </nz-tab>
+
+
+        <nz-tab nzTitle="Estilo de Vida">
+          <h3>Atividade Física</h3>
+          <nz-form-item>
+            <nz-form-control>
+              <input formControlName="physicalActivity" nz-input placeholder="Ex: Caminhada 3x por semana" />
+            </nz-form-control>
+          </nz-form-item>
+
+
+          <h3>Consumo de Álcool (0-10)</h3>
+          <nz-form-item>
+            <nz-form-control>
+              <input type="number" formControlName="alcoholConsumption" nz-input min="0" max="10" />
+            </nz-form-control>
+          </nz-form-item>
+
+          <h3>Fumante</h3>
+          <nz-form-item>
+            <nz-form-control>
+              <input type="checkbox" formControlName="smoker" />
+            </nz-form-control>
+          </nz-form-item>
+        </nz-tab>
+
+        <nz-tab nzTitle="Contato de Emergência">
+          <h3>Nome</h3>
+          <nz-form-item>
+            <nz-form-control>
+              <input formControlName="emergencyContactName" nz-input />
+            </nz-form-control>
+          </nz-form-item>
+
+          <h3>Telefone</h3>
+          <nz-form-item>
+            <nz-form-control>
+              <input formControlName="emergencyContactPhone" nz-input placeholder="(00) 00000-0000" mask="(00) 0*-0000" />
+            </nz-form-control>
+          </nz-form-item>
+        </nz-tab>
+      </nz-tabset>
+    </form>
+  </div>
+</nz-modal>
+
+

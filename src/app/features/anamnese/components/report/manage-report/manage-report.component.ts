@@ -14,13 +14,16 @@ import {IReport} from "../../../interfaces/IReport";
   styleUrls: ['./manage-report.component.scss']
 })
 export class ManageReportComponent implements OnInit , OnDestroy {
-   private destroy$ = new Subject<void>();
-   reportFilterForm !:FormGroup
+  private destroy$ = new Subject<void>();
+  reportFilterForm !:FormGroup
+  editReportForm!:FormGroup
   pacientsData !: IPacient[]
   reportsData !: IReport[]
+  selectedReport!: IReport
   totalReports: number = 0
   isLoading: boolean = false
   showPagination: boolean = true;
+  showEditReportModal: boolean = false
   pageIndex = 1;
   pageSize = 10
 
@@ -69,9 +72,14 @@ export class ManageReportComponent implements OnInit , OnDestroy {
       this.pacientsData = res.items;
     })
   }
+  handleUpdateReport(){
+
+  }
 
   openEditReportModal(report : IReport){
-    console.log("REPORT SELECIONADO", report)
+    this.selectedReport = report
+    this.editReportForm.patchValue(report)
+    this.showEditReportModal = true
   }
 
 
@@ -97,6 +105,21 @@ export class ManageReportComponent implements OnInit , OnDestroy {
        smoker: [''],
        diabetes: [''],
      })
+
+    this.editReportForm = this.formBuilder.group({
+      medicalHistory: [''],
+      currentMedications: [''],
+      cardiovascularIssues: [false],
+      diabetes: [false],
+      familyHistoryCardiovascularIssues: [false],
+      familyHistoryDiabetes: [false],
+      physicalActivity: [''],
+      smoker: [false],
+      alcoholConsumption: [0],
+      emergencyContactName: [''],
+      emergencyContactPhone: [''],
+      observations: ['']
+    });
   }
 
   ngOnDestroy(): void {
