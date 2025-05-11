@@ -105,7 +105,43 @@
 
     </nz-col>
   </nz-row>
-
-
-
 </form>
+
+<nz-spin [nzSpinning]="isLoading">
+  <nz-divider
+    nzText="Encontrados: {{ totalReports }} "
+    nzOrientation="left"
+    *ngIf="!!totalReports"></nz-divider>
+  <div nz-row class="table-responsive">
+    <nz-table
+      nzShowSizeChanger
+      [nzData]="pacientsData"
+      nzSize="default"
+      [nzFrontPagination]="false"
+      [nzShowPagination]="showPagination"
+      [nzTotal]="totalReports"
+      [nzPageIndex]="pageIndex"
+      [nzPageSize]="pageSize"
+      (nzPageIndexChange)="onPageIndexChange($event)"
+      (nzPageSizeChange)="onPageSizeChange($event)"
+    >
+      <thead>
+      <tr>
+        <th>Ações</th>
+        <th>Paciente</th>
+        <th>Contato de emergencia</th>
+        <th>Numero Contato Emergencia</th>
+        <th>Problemas cardiovasculares</th>
+        <th>Diabates</th>
+        <th>Fumante</th>
+      </tr>
+      </thead>
+
+
+
+    </nz-table>
+
+
+
+  </div>
+</nz-spin>

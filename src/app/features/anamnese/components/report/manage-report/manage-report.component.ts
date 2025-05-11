@@ -16,7 +16,11 @@ export class ManageReportComponent implements OnInit , OnDestroy {
    private destroy$ = new Subject<void>();
    reportFilterForm !:FormGroup
   pacientsData !: IPacient[]
+  totalReports: number = 0
   isLoading: boolean = false
+  showPagination: boolean = true;
+  pageIndex = 1;
+  pageSize = 10
 
   constructor(
     private formBuilder: FormBuilder,
@@ -36,7 +40,7 @@ export class ManageReportComponent implements OnInit , OnDestroy {
   getReports(){
      console.log("AQUI O FORM", this.reportFilterForm.value)
     this.isLoading = true
-    this.reportService.getAllReports().pipe(takeUntil(this.destroy$),
+    this.reportService.getAllReports(this.reportFilterForm.value).pipe(takeUntil(this.destroy$),
       finalize(() => this.isLoading = false),
       catchError((err: HttpErrorResponse) =>{
         const errMessage = err.error?.message || 'Erro ao buscar fichas!';
@@ -60,6 +64,17 @@ export class ManageReportComponent implements OnInit , OnDestroy {
     ).subscribe((res) => {
       this.pacientsData = res.items;
     })
+  }
+
+
+  onPageIndexChange(pageIndex: number): void {
+    this.pageIndex = pageIndex;
+    this.getReports()
+  }
+
+  onPageSizeChange(pageSize: number): void {
+    this.pageSize = pageSize
+    this.getReports()
   }
 
   clearForm(){

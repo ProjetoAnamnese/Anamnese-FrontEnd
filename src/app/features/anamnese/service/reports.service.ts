@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
 import {CookieService} from "ngx-cookie-service";
 import {Observable, tap} from "rxjs";
 import {FormGroup} from "@angular/forms";
@@ -32,8 +32,11 @@ export class ReportsService {
   }
 
 
-  getAllReports(): Observable<Array<IReport>> {
-    return this.http.get<Array<IReport>>(`${this.API_URL}/api/Report/get-reports`, this.httpOptions)
+  getAllReports(filters?: any): Observable<Array<IReport>> {
+    const params = new HttpParams({ fromObject: filters });
+    return this.http.get<Array<IReport>>(`${this.API_URL}/api/Report/get-reports`,
+      { headers: this.httpOptions.headers, params }
+    )
   }
 
   getReportByPacientId(pacientId: number, reportForm: FormGroup): Observable<IReport> {
