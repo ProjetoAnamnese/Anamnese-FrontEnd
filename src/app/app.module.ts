@@ -10,7 +10,6 @@ import { ptBR } from "date-fns/locale";
 import { MessageService } from "./shared/services/message.service";
 import { FullLayoutModule } from "./core/full-layout/full-layout.module";
 import { NotFoundComponent } from "./shared/components/not-found/not-found.component";
-
 import { registerLocaleData } from '@angular/common';
 import ptBr from '@angular/common/locales/pt';
 registerLocaleData(ptBr);
