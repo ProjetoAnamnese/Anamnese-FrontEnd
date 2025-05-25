@@ -1,11 +1,59 @@
 <nz-page-header class="mobile-header" nzTitle="Seus horários"></nz-page-header>
 <nz-divider></nz-divider>
 
+<nz-spin [nzSpinning]="isLoading">
+  <nz-divider
+    nzText="Encontrados: {{ totalAvailableData }} "
+    nzOrientation="left"
+    *ngIf="!!totalAvailableData"
+  ></nz-divider>
+  <button
+    nz-button
+    nzType="primary"
+    nzSize="large"
+    type="submit"
+    [disabled]="isLoading"
+    [nzLoading]="isLoading"
+    (click)="openCreateAvailableModal()"
+  >
+    <i nz-icon nzType="plus" nzTheme="outline"></i>
+    Cadastrar horario
+  </button>
 
+  <div nz-row class="table-responsive">
+    <nz-table
+      nzShowSizeChanger
+      [nzData]="profissionalAvailableData"
+      nzSize="default"
+      [nzFrontPagination]="false"
+      [nzShowPagination]="true"
+      [nzTotal]="totalAvailableData"
+    >
+      <thead>
+      <tr>
+        <th>Ações</th>
+        <th>Dia da semana</th>
+        <th>Hora de entrada</th>
+        <th>Hora de saída</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let available of profissionalAvailableData">
+        <td>
+          <button nz-button nzShape="circle" title="Editar ficha" style="margin-left: 5px">
+            <span nz-icon nzType="edit"></span>
+          </button>
+        </td>
+        <td>{{ available.dayOfWeek }}</td>
+        <td>{{ available.startTime}}</td>
+        <td>{{ available.endTime }}</td>
+      </tr>
+      </tbody>
+    </nz-table>
+  </div>
+</nz-spin>
 
-
-<!--Modal para cadastrar disponibilidade-->
-
+<!-- Modal de cadastro de disponibilidade -->
 <nz-modal
   [(nzVisible)]="showModalCreateAvailable"
   nzTitle="Cadastrar disponibilidade"
@@ -15,18 +63,23 @@
   [nzOkDisabled]="disponibilityForm.invalid"
 >
   <form [formGroup]="disponibilityForm" nz-form nzLayout="vertical" *nzModalContent>
-
+    <!-- Dia da semana -->
     <nz-form-item>
       <nz-form-label nzRequired>Dia da semana</nz-form-label>
       <nz-form-control [nzErrorTip]="'Campo obrigatório'" nzHasFeedback>
         <nz-select formControlName="dayOfWeek" nzPlaceHolder="Selecione o dia">
-          <nz-option *ngFor="let dia of ['Segunda','Terça','Quarta','Quinta','Sexta','Sábado','Domingo']"
-                     [nzLabel]="dia" [nzValue]="dia">
-          </nz-option>
+          <nz-option [nzLabel]="'Segunda'" nzValue="Monday"></nz-option>
+          <nz-option [nzLabel]="'Terça'" nzValue="Tuesday"></nz-option>
+          <nz-option [nzLabel]="'Quarta'" nzValue="Wednesday"></nz-option>
+          <nz-option [nzLabel]="'Quinta'" nzValue="Thursday"></nz-option>
+          <nz-option [nzLabel]="'Sexta'" nzValue="Friday"></nz-option>
+          <nz-option [nzLabel]="'Sábado'" nzValue="Saturday"></nz-option>
+          <nz-option [nzLabel]="'Domingo'" nzValue="Sunday"></nz-option>
         </nz-select>
       </nz-form-control>
     </nz-form-item>
 
+    <!-- Horário de início -->
     <nz-form-item>
       <nz-form-label nzRequired>Horário de início</nz-form-label>
       <nz-form-control [nzErrorTip]="'Campo obrigatório'" nzHasFeedback>
@@ -39,6 +92,7 @@
       </nz-form-control>
     </nz-form-item>
 
+    <!-- Horário de fim -->
     <nz-form-item>
       <nz-form-label nzRequired>Horário de fim</nz-form-label>
       <nz-form-control [nzErrorTip]="'Campo obrigatório'" nzHasFeedback>
@@ -50,6 +104,5 @@
         ></nz-time-picker>
       </nz-form-control>
     </nz-form-item>
-
   </form>
 </nz-modal>

@@ -4,6 +4,9 @@ import {catchError, finalize, Subject, takeUntil, throwError} from "rxjs";
 import {HttpErrorResponse} from "@angular/common/http";
 import {MessageService} from "../../../../../shared/services/message.service";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {
+  ProfissionalAvailableResponse
+} from "../../../../../shared/dtos/profissional-available/profissionalAvailableResponse";
 
 @Component({
   selector: 'app-profissional-available',
@@ -14,6 +17,8 @@ export class ProfissionalAvailableComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject<void>();
   isLoading: boolean = false
   showModalCreateAvailable: boolean = false;
+  totalAvailableData!: number;
+  profissionalAvailableData!: ProfissionalAvailableResponse[];
   disponibilityForm = this.formBuilder.group({
     dayOfWeek: ["", Validators.required],
     startTime: [null, Validators.required],
@@ -49,6 +54,8 @@ export class ProfissionalAvailableComponent implements OnInit, OnDestroy {
         }))
       .subscribe((res) => {
         console.log('aqui a res', res)
+        this.totalAvailableData = res.length
+        this.profissionalAvailableData = res
 
       })
 
