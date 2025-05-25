@@ -18,6 +18,7 @@ export class ManagePacientComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject<void>();
   isLoading: boolean = false
   showReportModal: boolean = false
+  showScheduleAppointmentModal: boolean = false
   editPacientModal: boolean = false
   filterPacientForm !: FormGroup
   editPacientForm !: FormGroup
@@ -91,6 +92,11 @@ export class ManagePacientComponent implements OnInit, OnDestroy {
     this.getPacients()
   }
 
+
+  openScheduleAppointment(pacient: IPacient): void {
+    this.selectedPacient = pacient;
+    this.showScheduleAppointmentModal = true;
+  }
 
   openEditPacientModal(pacient: IPacient): void {
     this.selectedPacient = pacient;

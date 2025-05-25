@@ -155,6 +155,17 @@
           >
             <span nz-icon nzType="file-search"></span>
           </button>
+          <button
+            nz-button
+            (click)="openScheduleAppointment(pacient)"
+            nzShape="circle"
+            title="Encaminhar Paciente"
+            style="margin-left: 5px"
+            nz-tooltip
+            [nzTooltipTitle]="pacient.appointment ? 'Paciente já encaminhado' : 'Encaminhar Paciente'"
+          >
+            <span nz-icon nzType="swap-right"></span>
+          </button>
 
         </td>
 
@@ -175,6 +186,22 @@
 
   </div>
 </nz-spin>
+
+
+
+<nz-modal
+  [(nzVisible)]="showScheduleAppointmentModal"
+  nzTitle="Encaminhar Paciente"
+  [nzWidth]="800"
+  (nzOnOk)="updatePacient()"
+  (nzOnCancel)="showScheduleAppointmentModal = false"
+>
+  <div *nzModalContent>
+    <p>encaminhar</p>
+
+  </div>
+
+</nz-modal>
 
 
 <!-----------------MODAL PARA EDITAR PACIENTE----------------->
