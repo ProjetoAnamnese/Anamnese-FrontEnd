@@ -35,7 +35,12 @@ const routes: Routes = [
       {
         path: 'manage-report',
         loadChildren: () => import('./features/anamnese/components/report/manage-report/manage-report.module').then(m => m.ManageReportModule),
+      },
+      {
+        path: 'schedules',
+        loadChildren: () => import('./features/anamnese/components/schedules/schedules.module').then(m => m.SchedulesModule),
       }
+
 
     ]
 
