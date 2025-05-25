@@ -32,9 +32,8 @@ export class ScheduleService {
     );
   }
 
-  scheduleAppointment(profissionalId: number, pacientId: number,appointmentDate: string, appointmentTime: string ): Observable<AppointmentRequest> {
+  scheduleAppointment(pacientId: number,appointmentDate: string, appointmentTime: string ): Observable<AppointmentRequest> {
     const requestData: AppointmentRequest = {
-      profissionalId: profissionalId,
       pacientId: pacientId,
       appointmentDate: appointmentDate,
       appointmentTime: appointmentTime

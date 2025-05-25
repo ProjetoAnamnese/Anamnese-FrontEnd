@@ -191,13 +191,17 @@
 
 <nz-modal
   [(nzVisible)]="showScheduleAppointmentModal"
-  nzTitle="Encaminhar Paciente"
+  nzTitle="Encaminhar paciente - {{selectedPacient?.username}}"
   [nzWidth]="800"
-  (nzOnOk)="updatePacient()"
+  (nzOnOk)="scheduleAppointment()"
   (nzOnCancel)="showScheduleAppointmentModal = false"
+  [nzOkDisabled]="!selectedAppointmentDate || !selectedAppointmentTime"
 >
   <div *nzModalContent>
-    <h3 class="text-center">{{profissionalAvailableData.length ? 'Seus horários' : 'Nenhum horário disponível'}}</h3>
+
+    <p style="text-align: center;">
+      {{ profissionalAvailableData.length ? 'Seus horários' : 'Nenhum horário disponível' }}
+    </p>
 
     <nz-table
       *ngIf="profissionalAvailableData?.length"
@@ -215,14 +219,43 @@
       <tbody>
       <tr *ngFor="let horario of profissionalAvailableData">
         <td>{{ horario.dayOfWeek }}</td>
-        <td>{{ horario.startTime }}</td>
-        <td>{{ horario.endTime }}</td>
+        <td>{{ horario.startTime?.slice(0, 5) }}</td>
+        <td>{{ horario.endTime?.slice(0, 5) }}</td>
       </tr>
       </tbody>
     </nz-table>
+
+    <div style="margin-top: 24px;">
+      <!-- Data -->
+      <nz-form-item>
+        <nz-form-label nzRequired>Data do agendamento</nz-form-label>
+        <nz-form-control nzHasFeedback [nzErrorTip]="'Campo obrigatório'">
+          <nz-date-picker
+            style="width: 100%;"
+            [(ngModel)]="selectedAppointmentDate"
+            [nzFormat]="'dd/MM/yyyy'"
+            [nzDisabledDate]="disablePastDates"
+            name="appointmentDate"
+          ></nz-date-picker>
+        </nz-form-control>
+      </nz-form-item>
+
+      <!-- Hora -->
+      <nz-form-item>
+        <nz-form-label nzRequired>Hora do agendamento</nz-form-label>
+        <nz-form-control nzHasFeedback [nzErrorTip]="'Campo obrigatório'">
+          <nz-time-picker
+            style="width: 100%;"
+            [(ngModel)]="selectedAppointmentTime"
+            nzFormat="HH:mm"
+            nzUse12Hours="false"
+            name="appointmentTime"
+          ></nz-time-picker>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+
   </div>
-
-
 </nz-modal>
 
 
