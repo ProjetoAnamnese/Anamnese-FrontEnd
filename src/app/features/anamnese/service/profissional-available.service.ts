@@ -33,6 +33,14 @@ export class ProfissionalAvailableService {
       `${this.API_URL}/api/ProfissionalAvailable/profissional-by-speciality?speciality=${speciality}`
     );
   }
+
+  editProfissionalAvailability(availabilityId: number, requestData:{startTime: string, endTime: string}){
+    return this.http.put<any>(
+      `${this.API_URL}/api/ProfissionalAvailable/edit-available/${availabilityId}`,
+      requestData,
+      this.httpOptions
+    );
+  }
   sendProfissionalAvailable(dayOfWeek: string, startTime: string, endTime: string):Observable<ProfissionalAvailableResponse> {
     const requestData = {dayOfWeek, startTime, endTime}
     return this.http.post<ProfissionalAvailableResponse>(

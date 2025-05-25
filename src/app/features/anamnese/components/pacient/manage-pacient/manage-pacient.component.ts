@@ -60,7 +60,6 @@ export class ManagePacientComponent implements OnInit, OnDestroy {
 
   updatePacient() {
     this.isLoading = true
-    console.log('AQUI O THIS.SELECTED', this.selectedPacient)
     this.pacientService.editPacient(this.editPacientForm.value, this.selectedPacient.pacientId).pipe(takeUntil(this.destroy$),
       finalize(() => this.isLoading = false),
       catchError((err: HttpErrorResponse) => {
@@ -69,7 +68,7 @@ export class ManagePacientComponent implements OnInit, OnDestroy {
         this.messageService.errorMessage(errorMessage);
         return throwError(() => err);
       })
-    ).subscribe((res) => {
+    ).subscribe(() => {
       this.getPacients();
       this.messageService.successMessage('Paciente atualizado com sucesso!');
       this.editPacientModal = false

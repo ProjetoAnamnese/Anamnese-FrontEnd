@@ -40,7 +40,7 @@
       <tbody>
       <tr *ngFor="let available of profissionalAvailableData">
         <td>
-          <button nz-button nzShape="circle" title="Editar ficha" style="margin-left: 5px">
+          <button nz-button nzShape="circle" title="Editar ficha" style="margin-left: 5px" (click)="openEditAvailableModal(available)">
             <span nz-icon nzType="edit"></span>
           </button>
         </td>
@@ -52,6 +52,49 @@
     </nz-table>
   </div>
 </nz-spin>
+
+
+
+
+<!-- Modal de editar de disponibilidade -->
+<nz-modal
+  [(nzVisible)]="showModalEditAvailable"
+  nzTitle="Cadastrar disponibilidade"
+  (nzOnCancel)="showModalEditAvailable = false"
+  (nzOnOk)="editProfissionalAvailable()"
+  [nzOkLoading]="isLoading"
+  [nzOkDisabled]="disponibilityEditForm.invalid"
+>
+  <form [formGroup]="disponibilityEditForm" nz-form nzLayout="vertical" *nzModalContent>
+    <!-- Horário de início -->
+    <nz-form-item>
+      <nz-form-label nzRequired>Horário de início</nz-form-label>
+      <nz-form-control [nzErrorTip]="'Campo obrigatório'" nzHasFeedback>
+        <nz-time-picker
+          style="width: 100%"
+          formControlName="startTime"
+          nzFormat="HH:mm"
+          nzUse12Hours="false"
+        ></nz-time-picker>
+      </nz-form-control>
+    </nz-form-item>
+
+    <!-- Horário de fim -->
+    <nz-form-item>
+      <nz-form-label nzRequired>Horário de fim</nz-form-label>
+      <nz-form-control [nzErrorTip]="'Campo obrigatório'" nzHasFeedback>
+        <nz-time-picker
+          style="width: 100%"
+          formControlName="endTime"
+          nzFormat="HH:mm"
+          nzUse12Hours="false"
+        ></nz-time-picker>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+</nz-modal>
+
+
 
 <!-- Modal de cadastro de disponibilidade -->
 <nz-modal

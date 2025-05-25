@@ -17,10 +17,17 @@ export class ProfissionalAvailableComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject<void>();
   isLoading: boolean = false
   showModalCreateAvailable: boolean = false;
+  showModalEditAvailable: boolean = false;
   totalAvailableData!: number;
   profissionalAvailableData!: ProfissionalAvailableResponse[];
+  selectedAvailability!: ProfissionalAvailableResponse;
   disponibilityForm = this.formBuilder.group({
     dayOfWeek: ["", Validators.required],
+    startTime: [null, Validators.required],
+    endTime: [null, Validators.required]
+  }, {validators: this.timeDifferenceValidator});
+
+  disponibilityEditForm = this.formBuilder.group({
     startTime: [null, Validators.required],
     endTime: [null, Validators.required]
   }, {validators: this.timeDifferenceValidator});
@@ -34,6 +41,25 @@ export class ProfissionalAvailableComponent implements OnInit, OnDestroy {
 
   openCreateAvailableModal(): void {
     this.showModalCreateAvailable = true;
+  }
+  openEditAvailableModal(selectedAvailability: ProfissionalAvailableResponse): void {
+    this.selectedAvailability = selectedAvailability;
+
+    const [startHours, startMinutes] = selectedAvailability.startTime.split(':').map(Number);
+    const [endHours, endMinutes] = selectedAvailability.endTime.split(':').map(Number);
+
+    this.disponibilityEditForm.patchValue({
+      startTime: new Date(1970, 0, 1, startHours, startMinutes),
+      endTime: new Date(1970, 0, 1, endHours, endMinutes)
+    });
+
+    this.showModalEditAvailable = true;
+  }
+
+
+  closeEditAvailableModal(): void {
+    this.showModalEditAvailable = false;
+    this.getProfissionalAvailable()
   }
   closeCreateAvailableModal(): void {
     this.showModalCreateAvailable = false;
@@ -53,7 +79,6 @@ export class ProfissionalAvailableComponent implements OnInit, OnDestroy {
           return throwError(() => err);
         }))
       .subscribe((res) => {
-        console.log('aqui a res', res)
         this.totalAvailableData = res.length
         this.profissionalAvailableData = res
 
@@ -61,6 +86,38 @@ export class ProfissionalAvailableComponent implements OnInit, OnDestroy {
 
   }
 
+  editProfissionalAvailable() {
+    const startTime = this.disponibilityEditForm.value.startTime;
+    const endTime = this.disponibilityEditForm.value.endTime;
+    const startTimeFormatted = new Date(startTime).toLocaleTimeString('en-US', {
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+      hour12: false
+    });
+    const endTimeFormatted = new Date(endTime).toLocaleTimeString('en-US', {
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+      hour12: false
+    });
+    const availabilityId = this.selectedAvailability.profissionalAvailableId
+
+    this.profissionalAvailableService.editProfissionalAvailability(availabilityId, {startTime: startTimeFormatted, endTime: endTimeFormatted})
+      .pipe(
+        takeUntil(this.destroy$),
+        finalize(() => this.isLoading = false),
+        catchError((err: HttpErrorResponse) => {
+          const errorMessage = err.error?.message || 'Erro ao editar horario';
+          console.log(err);
+          this.messageService.errorMessage(errorMessage);
+          return throwError(() => err);
+        })
+      ).subscribe(() =>{
+        this.messageService.successMessage('Horário editado com sucesso!');
+        this.closeEditAvailableModal();
+    })
+  }
   createProfissionalAvailable() {
     const startTime = this.disponibilityForm.value.startTime;
     const endTime = this.disponibilityForm.value.endTime;
@@ -87,8 +144,7 @@ export class ProfissionalAvailableComponent implements OnInit, OnDestroy {
           this.messageService.errorMessage(errorMessage);
           return throwError(() => err);
         })
-      ).subscribe((res) =>{
-      console.log('RES AO CRIAR', res)
+      ).subscribe(() =>{
       this.messageService.successMessage('Disponibilidade criada com sucesso')
       this.closeCreateAvailableModal()
     })

@@ -25,9 +25,9 @@ export class ScheduleService {
   }
 
 
-  getProfissionalAppointment(profissionalId: number): Observable<AppointmentResponse[]> {
+  getProfissionalAppointment(): Observable<AppointmentResponse[]> {
     return this.http.get<AppointmentResponse[]>(
-      `${this.API_URL}/api/Appointment/profissional-appointments/${profissionalId}`,
+      `${this.API_URL}/api/Appointment/profissional-appointments`,
       this.httpOptions
     );
   }
