@@ -4,6 +4,7 @@ import {MessageService} from "../../../../../shared/services/message.service";
 import {ScheduleService} from "../../../service/schedule.service";
 import {HttpErrorResponse} from "@angular/common/http";
 import {AppointmentResponse} from "../../../../../shared/dtos/schedules/AppointmentResponse";
+import {FormBuilder, FormGroup} from "@angular/forms";
 
 @Component({
   selector: 'app-schedules',
@@ -13,9 +14,14 @@ import {AppointmentResponse} from "../../../../../shared/dtos/schedules/Appointm
 export class SchedulesComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject<void>();
   isLoading: boolean = false
+  filterSchedulesForm!: FormGroup;
   schedulesData !: AppointmentResponse[]
+  totalSchedules !: number
+  showPagination: boolean = true;
+  pageIndex = 1;
+  pageSize = 10;
 
-  constructor(private messageService: MessageService, private scheduleService: ScheduleService) {
+  constructor(private messageService: MessageService, private scheduleService: ScheduleService, private formBuilder: FormBuilder) {
   }
 
   ngOnInit(): void {
@@ -33,11 +39,23 @@ export class SchedulesComponent implements OnInit, OnDestroy {
           this.messageService.errorMessage(errorMessage);
           return throwError(() => err);
         })
-      ).subscribe((res) =>{
+      ).subscribe((res: any) =>{
         console.log('res', res);
-        this.schedulesData = res
+        this.totalSchedules = res.totalCount
+        this.schedulesData = res.items
     })
   }
+
+  onPageIndexChange(pageIndex: number): void {
+    this.pageIndex = pageIndex;
+    this.getProfissionalSchedules()
+  }
+
+  onPageSizeChange(pageSize: number): void {
+    this.pageSize = pageSize
+    this.getProfissionalSchedules()
+  }
+
 
   ngOnDestroy(): void {
     this.destroy$.next();
