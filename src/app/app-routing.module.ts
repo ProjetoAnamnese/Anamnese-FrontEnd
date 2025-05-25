@@ -37,8 +37,12 @@ const routes: Routes = [
         loadChildren: () => import('./features/anamnese/components/report/manage-report/manage-report.module').then(m => m.ManageReportModule),
       },
       {
+        path: 'profissional-available',
+        loadChildren: () => import('./features/anamnese/components/appointments/profissional-available/profissional-available.module').then(m => m.ProfissionalAvailableModule),
+      },
+      {
         path: 'schedules',
-        loadChildren: () => import('./features/anamnese/components/schedules/schedules.module').then(m => m.SchedulesModule),
+        loadChildren: () => import('./features/anamnese/components/appointments/schedules/schedules.module').then(m => m.SchedulesModule),
       }
 
 
