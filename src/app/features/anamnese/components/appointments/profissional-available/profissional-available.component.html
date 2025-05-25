@@ -1,1 +1,55 @@
-<p>profissional-available works!</p>
+<nz-page-header class="mobile-header" nzTitle="Seus horários"></nz-page-header>
+<nz-divider></nz-divider>
+
+
+
+
+<!--Modal para cadastrar disponibilidade-->
+
+<nz-modal
+  [(nzVisible)]="showModalCreateAvailable"
+  nzTitle="Cadastrar disponibilidade"
+  (nzOnCancel)="showModalCreateAvailable = false"
+  (nzOnOk)="createProfissionalAvailable()"
+  [nzOkLoading]="isLoading"
+  [nzOkDisabled]="disponibilityForm.invalid"
+>
+  <form [formGroup]="disponibilityForm" nz-form nzLayout="vertical" *nzModalContent>
+
+    <nz-form-item>
+      <nz-form-label nzRequired>Dia da semana</nz-form-label>
+      <nz-form-control [nzErrorTip]="'Campo obrigatório'" nzHasFeedback>
+        <nz-select formControlName="dayOfWeek" nzPlaceHolder="Selecione o dia">
+          <nz-option *ngFor="let dia of ['Segunda','Terça','Quarta','Quinta','Sexta','Sábado','Domingo']"
+                     [nzLabel]="dia" [nzValue]="dia">
+          </nz-option>
+        </nz-select>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label nzRequired>Horário de início</nz-form-label>
+      <nz-form-control [nzErrorTip]="'Campo obrigatório'" nzHasFeedback>
+        <nz-time-picker
+          style="width: 100%"
+          formControlName="startTime"
+          nzFormat="HH:mm"
+          nzUse12Hours="false"
+        ></nz-time-picker>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label nzRequired>Horário de fim</nz-form-label>
+      <nz-form-control [nzErrorTip]="'Campo obrigatório'" nzHasFeedback>
+        <nz-time-picker
+          style="width: 100%"
+          formControlName="endTime"
+          nzFormat="HH:mm"
+          nzUse12Hours="false"
+        ></nz-time-picker>
+      </nz-form-control>
+    </nz-form-item>
+
+  </form>
+</nz-modal>
