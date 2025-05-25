@@ -23,9 +23,10 @@ export class ProfissionalAvailableService {
   constructor(private http: HttpClient, private cookie: CookieService) {
   }
 
-  getProfissionalAvailable(profissionalId: number): Observable<ProfissionalAvailableResponse[]> {
+  getProfissionalAvailable(): Observable<ProfissionalAvailableResponse[]> {
     return this.http.get<ProfissionalAvailableResponse[]>(
-      `${this.API_URL}/api/ProfissionalAvailable/profissional-available/${profissionalId}`
+      `${this.API_URL}/api/ProfissionalAvailable/profissional-available`,
+      this.httpOptions
     );
   }
   getProfissionalsBySpeciality(speciality: string): Observable<Array<any>> {

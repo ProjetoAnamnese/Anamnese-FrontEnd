@@ -197,9 +197,31 @@
   (nzOnCancel)="showScheduleAppointmentModal = false"
 >
   <div *nzModalContent>
-    <p>encaminhar</p>
+    <h3 class="text-center">{{profissionalAvailableData.length ? 'Seus horários' : 'Nenhum horário disponível'}}</h3>
 
+    <nz-table
+      *ngIf="profissionalAvailableData?.length"
+      [nzData]="profissionalAvailableData"
+      nzSize="small"
+      nzBordered
+    >
+      <thead>
+      <tr>
+        <th>Dia da semana</th>
+        <th>Início</th>
+        <th>Fim</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let horario of profissionalAvailableData">
+        <td>{{ horario.dayOfWeek }}</td>
+        <td>{{ horario.startTime }}</td>
+        <td>{{ horario.endTime }}</td>
+      </tr>
+      </tbody>
+    </nz-table>
   </div>
+
 
 </nz-modal>
 

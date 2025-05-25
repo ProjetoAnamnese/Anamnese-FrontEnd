@@ -8,6 +8,10 @@ import {SelectOption} from "../../../../../shared/interface/SelectOption";
 import {HttpErrorResponse} from "@angular/common/http";
 import {IPacient} from "../../../interfaces/IPacient";
 import {IReport} from "../../../interfaces/IReport";
+import {
+  ProfissionalAvailableResponse
+} from "../../../../../shared/dtos/profissional-available/profissionalAvailableResponse";
+import {ProfissionalAvailableService} from "../../../service/profissional-available.service";
 
 @Component({
   selector: 'app-manage-pacient',
@@ -26,6 +30,8 @@ export class ManagePacientComponent implements OnInit, OnDestroy {
   selectedPacient !: IPacient;
   selectedReport !: IReport
   ufs: SelectOption[] = [];
+  profissionalAvailableData!: ProfissionalAvailableResponse[];
+
   totalPacients: number = 0
   showPagination: boolean = true;
   pageIndex = 1;
@@ -34,6 +40,7 @@ export class ManagePacientComponent implements OnInit, OnDestroy {
   constructor(
     private formBuilder: FormBuilder,
     private pacientService: PacientService,
+    private profissionalAvailableService: ProfissionalAvailableService,
     private messageService: MessageService) {
   }
 
@@ -93,7 +100,8 @@ export class ManagePacientComponent implements OnInit, OnDestroy {
   }
 
 
-  openScheduleAppointment(pacient: IPacient): void {
+  async openScheduleAppointment(pacient: IPacient) {
+    await this.getProfissionalAvailable();
     this.selectedPacient = pacient;
     this.showScheduleAppointmentModal = true;
   }
@@ -138,6 +146,22 @@ export class ManagePacientComponent implements OnInit, OnDestroy {
       value: state.sigla,
       label: state.sigla
     }));
+  }
+
+  private getProfissionalAvailable() {
+    this.profissionalAvailableService.getProfissionalAvailable()
+      .pipe(
+        takeUntil(this.destroy$),
+        catchError((err: HttpErrorResponse) => {
+          const errorMessage = err.error?.message || 'Erro ao buscar seus horarios!';
+          console.log(err);
+          this.messageService.errorMessage(errorMessage);
+          return throwError(() => err);
+        }))
+      .subscribe((res) => {
+        this.profissionalAvailableData = res
+      })
+
   }
 
   ngOnDestroy(): void {

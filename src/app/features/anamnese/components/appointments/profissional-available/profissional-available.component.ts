@@ -68,7 +68,7 @@ export class ProfissionalAvailableComponent implements OnInit, OnDestroy {
 
 
   getProfissionalAvailable() {
-    this.profissionalAvailableService.getProfissionalAvailable(24)
+    this.profissionalAvailableService.getProfissionalAvailable()
       .pipe(
         takeUntil(this.destroy$),
         finalize(() => this.isLoading = false),
