@@ -1,10 +1,11 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {catchError, finalize, Subject, throwError} from "rxjs";
+import {catchError, Subject, throwError} from "rxjs";
 import {UserService} from "../../service/user.service";
 import {HttpErrorResponse} from "@angular/common/http";
 import {MessageService} from "../../../../shared/services/message.service";
 import {ReportsService} from "../../service/reports.service";
 import {PacientService} from "../../service/pacients.service";
+import {ScheduleService} from "../../service/schedule.service";
 
 @Component({
   selector: 'app-dashboard',
@@ -20,16 +21,21 @@ export class DashboardComponent implements OnInit, OnDestroy {
     comReport: number,
     semReport: number
   }
+  reportsByMonth!: {}
 
 
   constructor(
     private userService: UserService,
     private reportService: ReportsService,
+    private scheduleService: ScheduleService,
     private pacientService: PacientService,
     private messageService: MessageService) {
   }
 
   ngOnInit(): void {
+    this.countNextAppointments()
+    this.countByGender()
+    this.countReportByMonth()
     this.countPacientsByReport()
     this.countProfissionalPacients()
     this.countReports()
@@ -45,6 +51,32 @@ export class DashboardComponent implements OnInit, OnDestroy {
         })
       ).subscribe((res) => {
       this.countByReports = res
+    })
+  }
+  countNextAppointments() {
+    this.scheduleService.countNextOfTheDay()
+      .pipe(
+        catchError((err: HttpErrorResponse) => {
+          const errMessage = err.error?.message || 'Erro ao contar pacientes!';
+          this.messageService.errorMessage(errMessage)
+          return throwError(() => err);
+        })
+      ).subscribe((res) => {
+      console.log('proximos dos dias', res)
+    })
+  }
+
+
+  countByGender() {
+    this.pacientService.countByGender()
+      .pipe(
+        catchError((err: HttpErrorResponse) => {
+          const errMessage = err.error?.message || 'Erro ao contar pacientes!';
+          this.messageService.errorMessage(errMessage)
+          return throwError(() => err);
+        })
+      ).subscribe((res) => {
+      console.log('COUNT BY GENDER', res)
     })
   }
 
@@ -73,6 +105,20 @@ export class DashboardComponent implements OnInit, OnDestroy {
       )
       .subscribe((res) => {
         this.totalReports = res
+      })
+  }
+
+  countReportByMonth() {
+    this.reportService.countByMonth()
+      .pipe(
+        catchError((err: HttpErrorResponse) => {
+          const errMessage = err.error?.message || 'Erro ao contar fichar por mêS!';
+          this.messageService.errorMessage(errMessage)
+          return throwError(() => err);
+        })
+      )
+      .subscribe((res) => {
+        this.reportsByMonth =  res
       })
   }
 

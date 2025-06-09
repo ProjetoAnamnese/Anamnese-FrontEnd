@@ -91,6 +91,11 @@ editReport(reportId: number, requestData: ReportRequest): Observable<void>{
     return this.http.get<number>(`${this.API_URL}/api/Report/count-report`,
       this.httpOptions)
   }
+  countByMonth () : Observable<any>
+  {
+    return this.http.get<number>(`${this.API_URL}/api/Report/count-by-month`,
+      this.httpOptions)
+  }
 
 
 

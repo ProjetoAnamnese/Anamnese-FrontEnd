@@ -100,6 +100,14 @@ export class PacientService {
     );
   }
 
+  countByGender(): Observable<any> {
+    return this.http.get<any>(
+      `${this.API_URL}/api/Pacient/count-by-gender`,
+      this.httpOptions
+    );
+  }
+
+
   countSpeciality(): Observable<any> {
     return this.http.get(
       `${this.API_URL}/api/Pacient/count-pacient-by-specialty`

@@ -44,4 +44,10 @@ export class ScheduleService {
       this.httpOptions
     )
   }
+  countNextOfTheDay(): Observable<any> {
+    return this.http.get<any>(
+      `${this.API_URL}/api/Appointment/next-of-day`,
+      this.httpOptions
+    );
+  }
 }
