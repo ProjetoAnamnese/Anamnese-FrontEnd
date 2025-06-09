@@ -61,7 +61,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
         datasets: [
           {
             data: Object.values(res),
-            backgroundColor: ['#1890ff', '#40a9ff', '#69c0ff'], 
+            backgroundColor: ['#1890ff', '#40a9ff', '#69c0ff'],
             hoverOffset: 8
           }
         ]
@@ -139,15 +139,15 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   countProfissionalPacients() {
-    this.userService.countProfissionalPacients()
+    this.pacientService.getAllPacients()
       .pipe(
         catchError((err: HttpErrorResponse) => {
           this.messageService.errorMessage('Erro ao contar pacientes!');
           return throwError(() => err);
         })
-      ).subscribe((res) => {
-      this.totalProfissionalPacients = res;
-    });
+      ).subscribe((res)=>{
+        this.totalProfissionalPacients = res.totalCount
+    })
   }
 
   countReports() {
