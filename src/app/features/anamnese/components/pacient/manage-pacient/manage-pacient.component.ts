@@ -55,8 +55,15 @@ export class ManagePacientComponent implements OnInit, OnDestroy {
 
 
   getPacients() {
-    this.isLoading = true
-    this.pacientService.getAllPacients(this.filterPacientForm.value).pipe(takeUntil(this.destroy$),
+    this.isLoading = true;
+    const filters = {
+      ...this.filterPacientForm.value,
+      pageNumber: this.pageIndex,
+      pageSize: this.pageSize
+    };
+
+    this.pacientService.getAllPacients(filters).pipe(
+      takeUntil(this.destroy$),
       finalize(() => this.isLoading = false),
       catchError((err: HttpErrorResponse) => {
         const errorMessage = err.error?.message || 'Erro ao buscar pacientes!';
@@ -66,9 +73,10 @@ export class ManagePacientComponent implements OnInit, OnDestroy {
       })
     ).subscribe((res) => {
       this.pacientsData = res.items;
-      this.totalPacients = res.totalCount
-    })
+      this.totalPacients = res.totalCount;
+    });
   }
+
 
   scheduleAppointment(){
     if(!this.selectedAppointmentTime || !this.selectedAppointmentDate) return
