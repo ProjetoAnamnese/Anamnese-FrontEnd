@@ -93,6 +93,12 @@ export class PacientService {
       this.httpOptions
     );
   }
+  countByReport(): Observable<any> {
+    return this.http.get<any>(
+      `${this.API_URL}/api/Pacient/count-by-report`,
+      this.httpOptions
+    );
+  }
 
   countSpeciality(): Observable<any> {
     return this.http.get(

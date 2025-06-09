@@ -1,1 +1,11 @@
-<p>dashboard works!</p>
+<div class="dashboard-container">
+  <div class="dashboard-grid">
+    <nz-card nzTitle="Total de Pacientes" [nzLoading]="isLoading">
+      <p style="font-size: 32px; font-weight: bold;">{{ totalProfissionalPacients }}</p>
+    </nz-card>
+
+    <nz-card nzTitle="Total de Fichas" [nzLoading]="isLoading">
+      <p style="font-size: 32px; font-weight: bold;">{{ totalReports }}</p>
+    </nz-card>
+  </div>
+</div>
