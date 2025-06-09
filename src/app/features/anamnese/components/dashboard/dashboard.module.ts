@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import {SharedModule} from "../../../../shared/shared.module";
 import {DashboardComponent} from "./dashboard.component";
 import {DashboardRoutingModule} from "./dashboard-routing.module";
+import {BaseChartDirective} from "ng2-charts";
 
 
 
@@ -9,7 +10,8 @@ import {DashboardRoutingModule} from "./dashboard-routing.module";
   declarations: [DashboardComponent],
   imports: [
     SharedModule,
-    DashboardRoutingModule
+    DashboardRoutingModule,
+    BaseChartDirective,
   ]
 })
 export class DashboardModule { }

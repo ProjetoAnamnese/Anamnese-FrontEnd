@@ -1,11 +1,46 @@
 <div class="dashboard-container">
-  <div class="dashboard-grid">
+  <div class="dashboard-cards">
     <nz-card nzTitle="Total de Pacientes" [nzLoading]="isLoading">
-      <p style="font-size: 32px; font-weight: bold;">{{ totalProfissionalPacients }}</p>
+      <p class="card-value">{{ totalProfissionalPacients }}</p>
     </nz-card>
 
     <nz-card nzTitle="Total de Fichas" [nzLoading]="isLoading">
-      <p style="font-size: 32px; font-weight: bold;">{{ totalReports }}</p>
+      <p class="card-value">{{ totalReports }}</p>
+    </nz-card>
+
+    <nz-card nzTitle="Com Ficha" [nzLoading]="isLoading">
+      <p class="card-value">{{ countByReports?.comReport }}</p>
+    </nz-card>
+
+    <nz-card nzTitle="Sem Ficha" [nzLoading]="isLoading">
+      <p class="card-value">{{ countByReports?.semReport }}</p>
     </nz-card>
   </div>
+
+  <div class="dashboard-charts">
+    <nz-card nzTitle="Distribuição por Gênero" [nzLoading]="isLoading">
+      <canvas baseChart
+              [data]="donutChartData"
+              [options]="donutChartOptions"
+              [type]="'pie'">
+      </canvas>
+    </nz-card>
+
+    <nz-card nzTitle="Fichas por Mês" [nzLoading]="isLoading">
+      <canvas baseChart
+              [data]="barChartData"
+              [options]="barChartOptions"
+              [type]="'bar'">
+      </canvas>
+    </nz-card>
+  </div>
+
+  <nz-card nzTitle="Próximos Agendamentos" [nzLoading]="isLoading">
+    <ul *ngIf="nextAppointments?.length">
+      <li *ngFor="let app of nextAppointments">
+        {{ app.pacientName }} - {{ app.appointmentDateTime | date:'dd/MM/yyyy HH:mm' }}
+      </li>
+    </ul>
+    <p *ngIf="!nextAppointments?.length">Nenhum agendamento futuro encontrado.</p>
+  </nz-card>
 </div>
