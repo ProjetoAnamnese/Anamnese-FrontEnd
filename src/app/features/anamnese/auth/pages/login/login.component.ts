@@ -60,7 +60,6 @@ export class LoginComponent implements OnInit, OnDestroy {
 
         )
         .subscribe((res) => {
-          console.log('res aqui', res)
           this.cookieService.set(this.USER_AUTH, res?.token)
           this.cookieService.set(this.USER_NAME, res?.username)
           this.router.navigate(['/dashboard']);
