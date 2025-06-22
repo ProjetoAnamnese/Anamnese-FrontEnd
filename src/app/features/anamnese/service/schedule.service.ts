@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
 import {environment} from "../../../../../env/env";
 import {CookieService} from "ngx-cookie-service";
 import {AppointmentRequest} from "../../../shared/dtos/schedules/AppointmentRequest";
@@ -25,13 +25,23 @@ export class ScheduleService {
   }
 
 
-  getProfissionalAppointment(): Observable<AppointmentResponse[]> {
+  getProfissionalAppointment(filters?:any): Observable<AppointmentResponse[]> {
+    console.log('FILTERS AQUI', filters)
+    const params = new HttpParams({ fromObject: filters });
     return this.http.get<AppointmentResponse[]>(
       `${this.API_URL}/api/Appointment/profissional-appointments`,
-      this.httpOptions
+      { headers: this.httpOptions.headers, params }
     );
   }
 
+
+  updatedSchedule(appointmentId: number, updatedAppointment : {isCanceled: boolean}): Observable<any> {
+    return this.http.patch(
+      `${this.API_URL}/api/Appointment/update-appointment/${appointmentId}`,
+      updatedAppointment,
+      this.httpOptions
+    )
+  }
   scheduleAppointment(pacientId: number,appointmentDate: string, appointmentTime: string ): Observable<AppointmentRequest> {
     const requestData: AppointmentRequest = {
       pacientId: pacientId,

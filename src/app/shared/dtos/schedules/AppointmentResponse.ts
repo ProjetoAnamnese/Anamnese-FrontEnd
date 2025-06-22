@@ -6,4 +6,5 @@ export interface AppointmentResponse {
   profissionalId:number,
   profissionalName: string,
   speciality: string
+  isCanceled: boolean
 }
