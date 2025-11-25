@@ -65,8 +65,8 @@ export class CreateUserComponent implements OnInit, OnDestroy {
 
   private loadInstances() {
     this.createUserForm = this.formBuilder.group({
-      username: ['gabrielo', [Validators.required]],
-      email: ['gabrielosantosb@gmail.com', [Validators.required, Validators.email]],
+      username: ['', [Validators.required]],
+      email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]],
       speciality: ['', Validators.required]
     });
