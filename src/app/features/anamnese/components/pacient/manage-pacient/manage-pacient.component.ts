@@ -78,12 +78,18 @@ export class ManagePacientComponent implements OnInit, OnDestroy {
   }
 
 
-  scheduleAppointment(){
-    if(!this.selectedAppointmentTime || !this.selectedAppointmentDate) return
+  scheduleAppointment() {
+
+    if (!this.selectedAppointmentTime || !this.selectedAppointmentDate) return;
+    const selectedDate = this.selectedAppointmentDate.toLocaleDateString('en-CA');
+    const selectedTime = this.selectedAppointmentTime.toTimeString().slice(0, 8);
+
+    this.isLoading = true;
+
     this.scheduleService.scheduleAppointment(
       this.selectedPacient.pacientId,
-      this.selectedAppointmentDate.toISOString().split('T')[0],
-      this.selectedAppointmentTime.toTimeString().slice(0, 8)
+      selectedDate,
+      selectedTime
     )
       .pipe(
         takeUntil(this.destroy$),
@@ -94,19 +100,20 @@ export class ManagePacientComponent implements OnInit, OnDestroy {
           this.messageService.errorMessage(errorMessage);
           return throwError(() => err);
         })
-      ).subscribe((res: any) =>{
-        if(res.success){
-          this.messageService.successMessage('Paciente encaminhado com sucesso!')
-          this.closeScheduleAppointmentModal()
-        }
-        else{
-          const errMessage = res.message || 'Erro ao encaminhar paciente'
-          this.messageService.warningMessage(errMessage)
+      )
+      .subscribe((res: any) => {
+
+        if (res.success) {
+          this.messageService.successMessage('Paciente encaminhado com sucesso!');
+          this.closeScheduleAppointmentModal();
+        } else {
+          const errMessage = res.message || 'Erro ao encaminhar paciente';
+          this.messageService.warningMessage(errMessage);
         }
 
-
-    })
+      });
   }
+
 
   updatePacient() {
     this.isLoading = true
