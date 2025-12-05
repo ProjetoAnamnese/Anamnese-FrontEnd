@@ -40,9 +40,21 @@
       <tbody>
       <tr *ngFor="let available of profissionalAvailableData">
         <td>
-          <button nz-button nzShape="circle" title="Editar ficha" style="margin-left: 5px" (click)="openEditAvailableModal(available)">
+          <button nz-button nzShape="circle" title="Editar horário" style="margin-left: 5px" (click)="openEditAvailableModal(available)">
             <span nz-icon nzType="edit"></span>
           </button>
+          <button
+            nz-button
+            nzShape="circle"
+            style="margin-left: 5px"
+            nz-popconfirm
+            nzPopconfirmTitle="Tem certeza que deseja excluir?"
+            nzPopconfirmPlacement="top"
+            (nzOnConfirm)="deleteAvailable(available.profissionalAvailableId)">
+            <span nz-icon nzType="delete"></span>
+          </button>
+
+
         </td>
         <td>{{ available.dayOfWeek }}</td>
         <td>{{ available.startTime}}</td>

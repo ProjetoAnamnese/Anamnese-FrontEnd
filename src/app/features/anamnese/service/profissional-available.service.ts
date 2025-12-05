@@ -42,6 +42,13 @@ export class ProfissionalAvailableService {
       this.httpOptions
     );
   }
+
+  deleteProfissionalAvailability(availabilityId: number){
+    return this.http.delete<any>(
+      `${this.API_URL}/api/ProfissionalAvailable/remove-profissional-available/${availabilityId}`,
+      this.httpOptions
+    );
+  }
   sendProfissionalAvailable(dayOfWeek: string, startTime: string, endTime: string):Observable<ProfissionalAvailableResponse> {
     const requestData = {dayOfWeek, startTime, endTime}
     return this.http.post<ProfissionalAvailableResponse>(

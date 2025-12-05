@@ -118,6 +118,20 @@ export class ProfissionalAvailableComponent implements OnInit, OnDestroy {
         this.closeEditAvailableModal();
     })
   }
+  deleteAvailable(id: number): void {
+    console.log('aqui o id', id)
+    this.profissionalAvailableService.deleteProfissionalAvailability(id).subscribe({
+      next: () => {
+        this.profissionalAvailableData = this.profissionalAvailableData.filter(x => x.profissionalAvailableId !== id);
+        this.messageService.successMessage('Horário excluído!');
+      },
+      error: () => {
+        this.messageService.errorMessage('Erro ao excluir!');
+      }
+    });
+  }
+
+
   createProfissionalAvailable() {
     const startTime = this.disponibilityForm.value.startTime;
     const endTime = this.disponibilityForm.value.endTime;
