@@ -111,7 +111,6 @@ export class LoginComponent implements OnInit, OnDestroy {
   private userHasToken(): void {
     const token = this.authService.isLoggedIn();
     if (token) {
-      console.log('Usuário já possui token no cookie:', token);
       this.router.navigate(['/dashboard']); // descomente se quiser redirecionar automaticamente
     }
   }

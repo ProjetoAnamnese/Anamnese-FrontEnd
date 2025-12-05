@@ -51,7 +51,6 @@ export class ManageReportComponent implements OnInit, OnDestroy {
         return throwError(() => err);
       })
     ).subscribe((res) => {
-      console.log('AQUI A RES DOS REPORTS', res)
       this.reportsData = res.items;
       this.totalReports = res.totalCount
     })

@@ -167,8 +167,6 @@ export class ManagePacientComponent implements OnInit, OnDestroy {
     if(pacient.report){
       this.selectedReport = pacient.report
       this.showReportModal = true
-
-      console.log('REPORT SELECIONADO', this.selectedReport)
     }
   }
   disablePastDates = (current: Date): boolean => {

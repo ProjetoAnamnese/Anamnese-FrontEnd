@@ -55,7 +55,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
           return throwError(() => err);
         })
       ).subscribe((res) => {
-        console.log('res do genero', res)
       this.donutChartData = {
         labels: Object.keys(res),
         datasets: [
@@ -87,7 +86,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
         })
       )
       .subscribe((res) => {
-        console.log('res por mes', res)
         this.barChartData = {
           labels: Object.keys(res),
           datasets: [

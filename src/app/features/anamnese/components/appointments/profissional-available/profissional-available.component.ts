@@ -119,7 +119,6 @@ export class ProfissionalAvailableComponent implements OnInit, OnDestroy {
     })
   }
   deleteAvailable(id: number): void {
-    console.log('aqui o id', id)
     this.profissionalAvailableService.deleteProfissionalAvailability(id).subscribe({
       next: () => {
         this.profissionalAvailableData = this.profissionalAvailableData.filter(x => x.profissionalAvailableId !== id);

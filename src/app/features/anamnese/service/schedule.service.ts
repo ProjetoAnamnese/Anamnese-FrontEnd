@@ -26,7 +26,6 @@ export class ScheduleService {
 
 
   getProfissionalAppointment(filters?:any): Observable<AppointmentResponse[]> {
-    console.log('FILTERS AQUI', filters)
     const params = new HttpParams({ fromObject: filters });
     return this.http.get<AppointmentResponse[]>(
       `${this.API_URL}/api/Appointment/profissional-appointments`,

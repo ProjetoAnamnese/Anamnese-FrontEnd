@@ -42,7 +42,6 @@ export class SchedulesComponent implements OnInit, OnDestroy {
           return throwError(() => err);
         })
       ).subscribe((res: any) => {
-      console.log('res', res);
       this.totalSchedules = res.totalCount
       this.schedulesData = res.items
     })
@@ -60,7 +59,6 @@ export class SchedulesComponent implements OnInit, OnDestroy {
 
 
   updateSchedule(scheduleId: number, isCanceled: boolean) {
-    console.log('scheduleId', scheduleId);
     this.scheduleService.updatedSchedule(scheduleId, {isCanceled: isCanceled})
       .pipe(takeUntil(this.destroy$),
         finalize(() => this.isLoading = false),

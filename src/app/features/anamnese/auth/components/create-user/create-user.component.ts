@@ -55,7 +55,6 @@ export class CreateUserComponent implements OnInit, OnDestroy {
           })
         )
         .subscribe((res) => {
-          console.log("Usuário criado:", res);
           this.messageService.successMessage('Usuário cadastrado com sucesso!');
           this.modal.close();
           resolve(res);

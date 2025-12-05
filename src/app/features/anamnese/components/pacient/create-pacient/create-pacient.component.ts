@@ -31,8 +31,6 @@ export class CreatePacientComponent implements OnInit, OnDestroy {
   }
 
   handleCreatePacient() {
-    console.log('aqui os dados do paciente', this.createPacientForm.value);
-
     if (this.createPacientForm?.value && this.createPacientForm?.valid) {
       this.createPacientForm.get('birth')?.setValue(
         new Date(this.createPacientForm.value.birth).toISOString().split('T')[0]
@@ -53,7 +51,6 @@ export class CreatePacientComponent implements OnInit, OnDestroy {
           })
         )
         .subscribe((res) => {
-          console.log('CRIOU PACIENT AQUIA A RES', res);
           this.messageService.successMessage('Paciente cadastrado com sucesso!');
           this.clearForm();
         });
